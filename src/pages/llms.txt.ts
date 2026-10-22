@@ -16,7 +16,7 @@ export const GET: APIRoute = async ({ site }) => {
 
 SafePark is part of ${COMPANY}, a UK company. The map is at ${MAP_URL} and needs a SafePark login. It runs in a phone's browser, with nothing to install.
 
-## How to join
+## How to register
 
 - Drivers request access with the form at ${url('/sign-up/')}, or by phone on ${PHONE}.
 - The SafePark team checks the details and emails a login, usually within one working day.
@@ -29,7 +29,7 @@ SafePark is part of ${COMPANY}, a UK company. The map is at ${MAP_URL} and needs
 
 ## Pages
 
-- [Home](${url('/')}): what SafePark does and how to join
+- [Home](${url('/')}): what SafePark does and how to register
 - [Get access](${url('/sign-up/')}): request a SafePark login
 - [Guides](${url('/guides/')}): advice on secure parking and cargo crime
 - [Driver welfare](${url('/driver-welfare/')}): support services for drivers

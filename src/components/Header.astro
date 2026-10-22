@@ -4,7 +4,7 @@ import Button from './Button.astro';
 import logo from '../assets/img/SafeParkLogo4-with-TM.png';
 import { MAP_URL } from '../consts';
 
-export type NavId = 'home' | 'join' | 'guides' | 'contact' | 'sign-up' | 'none';
+export type NavId = 'home' | 'register' | 'guides' | 'contact' | 'sign-up' | 'none';
 
 interface Props {
   current?: NavId;
@@ -13,8 +13,8 @@ interface Props {
 const { current = 'none' } = Astro.props;
 
 const links: { id: NavId; label: string; href: string }[] = [
-  { id: 'home', label: 'How it works', href: '/#features' },
-  { id: 'join', label: 'How to join', href: '/#how' },
+  { id: 'home', label: 'How it Works', href: '/#features' },
+  { id: 'register', label: 'How to Register', href: '/#how' },
   { id: 'guides', label: 'Guides', href: '/guides/' },
   { id: 'contact', label: 'Contact', href: '/contact/' },
 ];
@@ -63,6 +63,32 @@ const onSignUp = current === 'sign-up';
     button.setAttribute('aria-expanded', String(open));
     header!.toggleAttribute('data-open', open);
   });
+  // "How it Works" and "How to Register" are both sections of the home page.
+  // There, mark whichever section has scrolled past the top 40% of the window
+  // as current, so the underline follows the reader and a click on either link
+  // shows up straight away. Above the first section, "How it Works" stays current.
+  if (header && location.pathname === '/') {
+    const sections = [...header.querySelectorAll<HTMLAnchorElement>('.nav a[href^="/#"]')]
+      .map((link) => ({ link, target: document.getElementById(link.hash.slice(1)) }))
+      .filter((s): s is { link: HTMLAnchorElement; target: HTMLElement } => s.target !== null);
+
+    const update = () => {
+      const line = window.innerHeight * 0.4;
+      let current = sections[0];
+      for (const s of sections) if (s.target.getBoundingClientRect().top <= line) current = s;
+      for (const s of sections) {
+        if (s === current) s.link.setAttribute('aria-current', 'location');
+        else s.link.removeAttribute('aria-current');
+      }
+    };
+
+    if (sections.length) {
+      update();
+      addEventListener('scroll', update, { passive: true });
+      addEventListener('hashchange', update);
+    }
+  }
+
   // Close the menu after following an in-page link such as /#how.
   header?.querySelectorAll('.nav a').forEach((a) =>
     a.addEventListener('click', () => {
@@ -94,7 +120,7 @@ const onSignUp = current === 'sign-up';
     border-bottom: 2px solid transparent;
   }
   .nav a:hover { color: var(--sp-navy); }
-  .nav a[aria-current='page'] { color: var(--sp-navy); border-bottom-color: var(--sp-sky); }
+  .nav a[aria-current] { color: var(--sp-navy); border-bottom-color: var(--sp-sky); }
   .nav .nav-login { display: none; }
 
   .actions { display: flex; gap: 12px; flex-shrink: 0; align-items: center; }
@@ -140,7 +166,7 @@ const onSignUp = current === 'sign-up';
     }
     [data-open] .nav { display: flex; }
     .nav a { padding: 12px 0; border-bottom: 1px solid var(--sp-divider); }
-    .nav a[aria-current='page'] { border-bottom-color: var(--sp-divider); }
+    .nav a[aria-current] { border-bottom-color: var(--sp-divider); }
     .nav .nav-login { display: block; border-bottom: 0; }
   }
 </style>
