@@ -35,7 +35,7 @@ jobs:
       - name: Build and upload the site
         uses: withastro/action@v6
         with:
-          node-version: 22
+          node-version: 24
 
   deploy:
     needs: build
