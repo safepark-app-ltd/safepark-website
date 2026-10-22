@@ -6,7 +6,7 @@ Built with [Astro](https://astro.build) and hosted on GitHub Pages.
 
 ## Run it locally
 
-Needs Node 22.12 or later.
+Needs Node 24 (or 22.23.4 or later).
 
 ```bash
 npm ci
