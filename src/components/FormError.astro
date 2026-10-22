@@ -1,0 +1,8 @@
+---
+import { EMAIL, PHONE, PHONE_HREF } from '../consts';
+---
+
+<p class="form-error" role="alert" data-error hidden>
+  Sorry, that didn’t send. Please try again, or call us on <a href={PHONE_HREF}>{PHONE}</a> or email
+  <a href={`mailto:${EMAIL}`}>{EMAIL}</a>.
+</p>

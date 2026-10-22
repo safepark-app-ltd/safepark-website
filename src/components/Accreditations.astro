@@ -1,0 +1,29 @@
+---
+import { Image } from 'astro:assets';
+import { accreditations } from '../data/accreditations';
+
+interface Props {
+  // Logo height in px.
+  height?: number;
+}
+
+const { height = 44 } = Astro.props;
+---
+
+<ul class="logos" aria-label="Accreditation schemes">
+  {
+    accreditations.map((a) => {
+      const h = Math.round(height * (a.scale ?? 1));
+      return (
+        <li>
+          <Image src={a.logo} alt={a.name} height={h} densities={[1, 2]} style={`height:${h}px`} />
+        </li>
+      );
+    })
+  }
+</ul>
+
+<style>
+  .logos { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 14px 28px; }
+  img { width: auto; }
+</style>

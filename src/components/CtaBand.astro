@@ -1,0 +1,49 @@
+---
+// Navy call-to-action panel: heading and text on the left, buttons on the right.
+// Pass `centred` for the large closing panel on the home page.
+interface Props {
+  title: string;
+  centred?: boolean;
+}
+
+const { title, centred = false } = Astro.props;
+---
+
+<div class:list={['band', { 'band--centred': centred }]}>
+  <div class="text">
+    <h2>{title}</h2>
+    <slot />
+  </div>
+  <div class="actions"><slot name="actions" /></div>
+  <slot name="after" />
+</div>
+
+<style>
+  .band {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 20px 32px;
+    background: var(--sp-navy);
+    color: var(--sp-white);
+    border-radius: var(--sp-radius-card);
+    padding: 36px 40px;
+  }
+  .text { flex: 1 1 420px; }
+  h2 { font-size: 28px; color: var(--sp-white); margin: 0 0 4px; }
+  .text :global(p) { margin: 0; color: rgba(255, 255, 255, 0.8); }
+  .actions { display: flex; flex-wrap: wrap; gap: 14px; }
+
+  .band--centred { flex-direction: column; text-align: center; padding: 64px 24px; gap: 0; }
+  .band--centred .text { flex: none; }
+  .band--centred h2 { font-size: clamp(30px, 3.4vw, 44px); margin-bottom: 14px; }
+  .band--centred .text :global(p) { font-size: 19px; max-width: 60ch; margin: 0 auto 32px; color: rgba(255, 255, 255, 0.82); }
+  .band--centred .actions { justify-content: center; }
+
+  @media (max-width: 600px) {
+    .band { padding: 28px 20px; }
+    .band--centred { padding: 40px 20px; }
+    .actions { width: 100%; flex-direction: column; }
+    .actions :global(.btn) { width: 100%; }
+  }
+</style>

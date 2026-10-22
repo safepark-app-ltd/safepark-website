@@ -1,0 +1,93 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Button from '../../components/Button.astro';
+import GuideCard from '../../components/GuideCard.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import lockLorry from '../../assets/img/lock-lorry-symbol.png';
+
+const [latest, ...rest] = (await getCollection('guides', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.published.valueOf() - a.data.published.valueOf(),
+);
+---
+
+<BaseLayout
+  title="Guides for HGV drivers | SafePark"
+  description="Practical advice on secure parking, cargo theft and staying safe on the road."
+  current="guides"
+>
+  <section class="page-hero">
+    <div class="container">
+      <span class="eyebrow">Guides</span>
+      <h1>Advice for drivers</h1>
+      <p class="lead">Practical reading on cargo crime, secure parking and driver wellbeing from the SafePark team.</p>
+    </div>
+  </section>
+
+  <section class="list">
+    <div class="container stack">
+      {
+        latest && (
+          <a href={`/${latest.id}/`} class="featured">
+            <div class="featured-art">
+              <Image src={lockLorry} alt="" width={170} densities={[1, 2]} />
+            </div>
+            <div class="featured-body">
+              <span class="meta">Latest · {latest.data.readMinutes} min read</span>
+              <h2>{latest.data.title}</h2>
+              <p>{latest.data.description}</p>
+              <span class="more">Read the guide →</span>
+            </div>
+          </a>
+        )
+      }
+
+      <div class="grid">
+        {rest.map((g) => <GuideCard guide={g} />)}
+      </div>
+
+      <CtaBand title="Put this into practice with SafePark">
+        <p>Vetted secure parking and live cargo-crime data, on one map.</p>
+        <Fragment slot="actions">
+          <Button href="/sign-up/" variant="on-dark" size="lg">Get access</Button>
+        </Fragment>
+      </CtaBand>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .list { padding: 64px 0 var(--sp-section); }
+  .stack { display: flex; flex-direction: column; gap: 32px; }
+
+  .featured {
+    display: flex;
+    flex-wrap: wrap;
+    background: var(--sp-white);
+    border-radius: var(--sp-radius-card);
+    box-shadow: var(--sp-shadow-card);
+    overflow: hidden;
+    text-decoration: none;
+    color: var(--sp-text);
+  }
+  .featured:hover { color: var(--sp-text); }
+  .featured:hover h2 { text-decoration: underline; }
+  .featured-art { flex: 1 1 420px; min-height: 300px; background: var(--sp-navy); display: flex; align-items: center; justify-content: center; }
+  .featured-art img { width: 170px; }
+  .featured-body { flex: 1 1 460px; padding: 40px; display: flex; flex-direction: column; }
+  .meta { font-family: var(--sp-font-display); font-size: 14px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--sp-sky-text); margin-bottom: 10px; }
+  .featured h2 { font-size: 34px; line-height: 1.2; margin: 0 0 14px; }
+  .featured p { margin: 0 0 20px; color: rgba(0, 0, 0, 0.65); }
+  .more { margin-top: auto; font-family: var(--sp-font-display); color: var(--sp-navy); text-transform: uppercase; letter-spacing: 0.04em; }
+
+  .stack > :global(.band) { margin-top: 24px; }
+
+  @media (max-width: 600px) {
+    .list { padding-top: 32px; }
+    .featured-art { min-height: 180px; flex-basis: 100%; }
+    .featured-art img { width: 110px; }
+    .featured-body { padding: 24px; flex-basis: 100%; }
+    .featured h2 { font-size: 26px; }
+  }
+</style>

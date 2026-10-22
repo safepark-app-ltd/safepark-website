@@ -1,0 +1,53 @@
+---
+// Link styled as an MUI "contained" button: uppercase Oswald, 4px radius.
+interface Props {
+  href: string;
+  variant?: 'primary' | 'outlined' | 'on-dark' | 'ghost-dark';
+  size?: 'md' | 'lg';
+  block?: boolean;
+  class?: string;
+}
+
+const { href, variant = 'primary', size = 'md', block = false, class: className } = Astro.props;
+---
+
+<a href={href} class:list={['btn', `btn--${variant}`, `btn--${size}`, { 'btn--block': block }, className]}>
+  <slot />
+</a>
+
+<style>
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 0 22px;
+    border: 1px solid transparent;
+    border-radius: var(--sp-radius);
+    font-family: var(--sp-font-display);
+    font-size: 17px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background-color 0.2s;
+  }
+  .btn--lg { min-height: 52px; padding: 0 28px; font-size: 19px; }
+  .btn--block { display: flex; width: 100%; }
+
+  .btn--primary { background: var(--sp-navy); color: var(--sp-white); box-shadow: var(--sp-shadow-button); }
+  .btn--primary:hover { background: var(--sp-navy-dark); color: var(--sp-white); }
+
+  .btn--outlined { background: transparent; color: var(--sp-navy); border-color: rgba(26, 43, 128, 0.5); }
+  .btn--outlined:hover { background: rgba(26, 43, 128, 0.04); border-color: var(--sp-navy); }
+
+  .btn--on-dark { background: var(--sp-white); color: var(--sp-navy); box-shadow: var(--sp-shadow-button); }
+  .btn--on-dark:hover { background: var(--sp-sky-light); color: var(--sp-navy); }
+
+  .btn--ghost-dark { background: transparent; color: var(--sp-white); border-color: rgba(255, 255, 255, 0.6); }
+  .btn--ghost-dark:hover { background: rgba(255, 255, 255, 0.08); color: var(--sp-white); }
+
+  @media (max-width: 600px) {
+    .btn--lg { font-size: 18px; }
+  }
+</style>

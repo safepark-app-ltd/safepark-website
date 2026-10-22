@@ -1,0 +1,158 @@
+---
+// Guides live at the site root (/<slug>/), matching the old WordPress URLs.
+import { Image } from 'astro:assets';
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/Button.astro';
+import lockLorry from '../assets/img/lock-lorry-symbol.png';
+import { SITE_NAME } from '../consts';
+
+export async function getStaticPaths() {
+  const guides = await getCollection('guides', ({ data }) => !data.draft);
+  return guides.map((guide) => ({ params: { guide: guide.id }, props: { guide, all: guides } }));
+}
+
+interface Props {
+  guide: CollectionEntry<'guides'>;
+  all: CollectionEntry<'guides'>[];
+}
+
+const { guide, all } = Astro.props;
+const { Content } = await render(guide);
+const { title, description, published, updated, readMinutes } = guide.data;
+const more = all.filter((g) => g.id !== guide.id).sort((a, b) => b.data.published.valueOf() - a.data.published.valueOf()).slice(0, 3);
+
+const url = (path: string) => new URL(path, Astro.site).href;
+const schema = [
+  {
+    '@type': 'Article',
+    headline: title,
+    description,
+    datePublished: published.toISOString(),
+    dateModified: (updated ?? published).toISOString(),
+    author: { '@id': url('/#organization') },
+    publisher: { '@id': url('/#organization') },
+    mainEntityOfPage: url(`/${guide.id}/`),
+  },
+  {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: url('/') },
+      { '@type': 'ListItem', position: 2, name: 'Guides', item: url('/guides/') },
+      { '@type': 'ListItem', position: 3, name: title },
+    ],
+  },
+];
+---
+
+<BaseLayout title={`${title} | ${SITE_NAME}`} description={description} current="guides" ogType="article" schema={schema}>
+  <section class="page-hero page-hero--navy article-hero">
+    <div class="container">
+      <nav aria-label="Breadcrumb" class="crumbs"><a href="/">Home</a> / <a href="/guides/">Guides</a></nav>
+      <h1>{title}</h1>
+      <div class="byline">
+        <span>SafePark team</span>
+        <time datetime={published.toISOString().slice(0, 10)}>
+          {published.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}
+        </time>
+        <span>{readMinutes} min read</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="body">
+    <div class="container cols">
+      <article class="prose">
+        <Content />
+        <div class="foot">
+          <a href="/guides/" class="text-action">← All guides</a>
+          <Button href="/sign-up/">Get access</Button>
+        </div>
+      </article>
+
+      <aside>
+        <div class="promo">
+          <Image src={lockLorry} alt="" width={64} densities={[1, 2]} />
+          <h2>Find somewhere safe to stop</h2>
+          <p>Vetted secure parking and live cargo-crime data on one map.</p>
+          <Button href="/sign-up/" variant="on-dark" block>Get access</Button>
+        </div>
+        {
+          more.length > 0 && (
+            <div>
+              <h2 class="more-title">More guides</h2>
+              <ul class="more">
+                {more.map((g) => (
+                  <li>
+                    <a href={`/${g.id}/`}>{g.data.shortTitle ?? g.data.title}</a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )
+        }
+      </aside>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .article-hero { padding: 56px 0 64px; }
+  .article-hero h1 { font-size: clamp(34px, 4.4vw, 56px); line-height: 1.12; max-width: 22ch; margin-bottom: 18px; }
+  .crumbs { font-family: var(--sp-font-display); font-size: 15px; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 20px; color: rgba(255, 255, 255, 0.7); }
+  .crumbs a { color: var(--sp-sky); text-decoration: none; }
+  .byline { font-family: var(--sp-font-display); font-size: 16px; color: rgba(255, 255, 255, 0.75); display: flex; flex-wrap: wrap; gap: 8px 20px; }
+
+  .body { padding: 64px 0 var(--sp-section); }
+  .cols { display: flex; flex-wrap: wrap; gap: 56px; align-items: flex-start; }
+
+  .prose { flex: 999 1 560px; min-width: 0; max-width: 720px; font-size: 18px; line-height: 1.7; }
+  .prose > :global(p:first-child) { font-size: 21px; line-height: 1.6; color: rgba(0, 0, 0, 0.75); margin-bottom: 28px; }
+  .prose :global(h2) { font-size: 32px; line-height: 1.2; margin: 40px 0 16px; }
+  .prose :global(h3) { font-size: 21px; font-weight: 500; color: var(--sp-text); margin: 0 0 6px; }
+  .prose :global(p), .prose :global(ul), .prose :global(ol) { margin: 0 0 18px; }
+  .prose :global(li) { margin-bottom: 8px; }
+  .prose :global(blockquote) {
+    margin: 36px 0;
+    padding: 24px 28px;
+    background: var(--sp-page);
+    border-left: 4px solid var(--sp-sky);
+    border-radius: var(--sp-radius-card);
+    font-family: var(--sp-font-display);
+    font-size: 22px;
+    line-height: 1.35;
+    color: var(--sp-navy);
+  }
+  .prose :global(blockquote p) { margin: 0; }
+
+  .foot {
+    border-top: 1px solid var(--sp-divider);
+    margin-top: 40px;
+    padding-top: 28px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  aside { flex: 1 1 300px; display: flex; flex-direction: column; gap: 24px; }
+  .promo { background: var(--sp-navy); color: var(--sp-white); border-radius: var(--sp-radius-card); padding: 28px; }
+  .promo img { width: 64px; margin-bottom: 14px; }
+  .promo h2 { font-size: 26px; line-height: 1.2; color: var(--sp-white); margin: 0 0 8px; }
+  .promo p { margin: 0 0 20px; font-size: 16px; color: rgba(255, 255, 255, 0.8); }
+  .more-title { font-size: 22px; margin: 0 0 12px; }
+  .more { list-style: none; margin: 0; padding: 0; }
+  .more li { border-top: 1px solid var(--sp-divider); }
+  .more li:last-child { border-bottom: 1px solid var(--sp-divider); }
+  .more a { display: block; padding: 12px 0; text-decoration: none; font-size: 16px; line-height: 1.45; }
+  .more a:hover { text-decoration: underline; }
+
+  @media (max-width: 600px) {
+    .article-hero { padding: 36px 0 40px; }
+    .body { padding-top: 32px; }
+    .prose { font-size: 17px; }
+    .prose > :global(p:first-child) { font-size: 19px; }
+    .prose :global(h2) { font-size: 27px; }
+  }
+</style>

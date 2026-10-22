@@ -1,0 +1,98 @@
+---
+import { Image } from 'astro:assets';
+import logo from '../assets/img/SafeParkLogo4-with-TM.png';
+import { COMPANY, EMAIL, MAP_URL, PHONE, PHONE_HREF } from '../consts';
+
+const columns = [
+  {
+    title: 'The app',
+    links: [
+      { label: 'Log in to the map', href: MAP_URL },
+      { label: 'Get access', href: '/sign-up/' },
+      { label: 'How it works', href: '/#features' },
+    ],
+  },
+  {
+    title: 'SafePark',
+    links: [
+      { label: 'Guides', href: '/guides/' },
+      { label: 'Driver welfare', href: '/driver-welfare/' },
+      { label: 'Contact', href: '/contact/' },
+    ],
+  },
+  {
+    title: 'Legal',
+    links: [
+      { label: 'Privacy policy', href: '/privacy-policy/' },
+      { label: 'Cookie policy', href: '/cookie-policy/' },
+      { label: 'Terms & conditions', href: '/terms-conditions/' },
+    ],
+  },
+];
+
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="cols">
+      <div class="about">
+        <div class="logo">
+          <Image src={logo} alt="SafePark" height={92} densities={[1]} />
+        </div>
+        <p>Secure truck parking and cargo-crime mapping for drivers.</p>
+        <p class="contact">
+          <a href={PHONE_HREF}>{PHONE}</a> · <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
+        </p>
+      </div>
+      {
+        columns.map((c) => (
+          <div>
+            <h2>{c.title}</h2>
+            <ul>
+              {c.links.map((l) => (
+                <li>
+                  <a href={l.href}>{l.label}</a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+    </div>
+    <div class="base">
+      <span>SafePark, part of {COMPANY}. © {year}. All rights reserved.</span>
+      <span>Map data © Mapbox © OpenStreetMap</span>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: var(--sp-navy-dark);
+    color: rgba(255, 255, 255, 0.78);
+    font-size: 15px;
+    padding: 56px 0 28px;
+  }
+  .cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 32px; }
+  .about { display: flex; flex-direction: column; gap: 14px; }
+  .about p { margin: 0; max-width: 30ch; }
+  .logo { background: var(--sp-white); border-radius: var(--sp-radius-card); padding: 10px 14px; align-self: flex-start; }
+  .logo img { height: 46px; width: auto; }
+  .contact { font-family: var(--sp-font-display); font-size: 18px; }
+  .contact a { color: var(--sp-white); text-decoration: none; }
+  h2 { font-size: 19px; color: var(--sp-white); margin: 0 0 12px; }
+  ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+  a { color: rgba(255, 255, 255, 0.78); text-decoration: none; }
+  a:hover { color: var(--sp-white); text-decoration: underline; }
+  .base {
+    border-top: 1px solid rgba(255, 255, 255, 0.18);
+    margin-top: 40px;
+    padding-top: 20px;
+    font-size: 13px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 24px;
+    justify-content: space-between;
+  }
+</style>

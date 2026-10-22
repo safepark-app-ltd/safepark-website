@@ -1,0 +1,82 @@
+---
+// Decorative map with app pins and an Incident Report card, as in the app.
+// Hidden from screen readers: it illustrates, it doesn't inform.
+import { Image } from 'astro:assets';
+import map from '../assets/img/map-thames.jpg';
+import pinSafepark from '../assets/icons/pin-safepark.png';
+import pinCrimeNew from '../assets/icons/pin-crime-new.png';
+import pinTruckstop from '../assets/icons/pin-truckstop.png';
+import pinFuel from '../assets/icons/pin-fuel-green.png';
+import pinCrimeOld from '../assets/icons/pin-crime-old.png';
+import tank from '../assets/icons/crime-damage-tank.png';
+import fuel from '../assets/icons/crime-theft-fuel.png';
+
+const pins = [
+  { src: pinSafepark, top: 15, left: 30 },
+  { src: pinCrimeNew, top: 28, left: 62 },
+  { src: pinTruckstop, top: 11, left: 80 },
+  { src: pinFuel, top: 40, left: 40 },
+  { src: pinCrimeOld, top: 21, left: 50 },
+];
+---
+
+<div class="hero-map" aria-hidden="true">
+  <Image src={map} alt="" widths={[480, 800, 1200]} sizes="(max-width: 960px) 100vw, 50vw" loading="eager" class="map" />
+  <div class="fade"></div>
+  {pins.map((p) => <Image src={p.src} alt="" width={46} densities={[1, 2]} class="pin" style={`top:${p.top}%;left:${p.left}%`} />)}
+  <div class="report">
+    <div class="report-label">Incident Report</div>
+    <div class="report-date">Friday, 24 September</div>
+    <dl>
+      <div><dt>Location</dt><dd>Tilbury Road, West Horndon</dd></div>
+      <div class="extra"><dt>Type</dt><dd>Fuel siphoned from HGV tank</dd></div>
+      <div class="extra"><dt>Source</dt><dd>Police crime data</dd></div>
+    </dl>
+    <div class="kinds">
+      <span><Image src={tank} alt="" width={48} densities={[1, 2]} />Damage</span>
+      <span><Image src={fuel} alt="" width={48} densities={[1, 2]} />Theft</span>
+    </div>
+  </div>
+</div>
+
+<style>
+  .hero-map { position: absolute; top: 0; right: 0; bottom: 0; width: 50%; min-width: 360px; }
+  .map { width: 100%; height: 100%; object-fit: cover; }
+  .fade { position: absolute; inset: 0; background: linear-gradient(90deg, var(--sp-navy) 0%, rgba(26, 43, 128, 0) 24%); }
+  .pin { position: absolute; width: 46px; filter: drop-shadow(0 3px 4px rgba(0, 0, 0, 0.35)); }
+
+  .report {
+    position: absolute;
+    right: 8%;
+    bottom: 60px;
+    width: 360px;
+    background: var(--sp-white);
+    color: var(--sp-text);
+    border-radius: var(--sp-radius);
+    padding: 22px 24px 18px;
+    box-shadow: var(--sp-shadow-dialog);
+    font-family: var(--sp-font-display);
+  }
+  .report-label { font-size: 18px; }
+  .report-date { font-size: 26px; color: var(--sp-navy); margin: 2px 0 10px; }
+  dl { margin: 0; font-size: 15px; }
+  dl div { display: flex; gap: 16px; padding: 7px 4px; border-bottom: 1px solid var(--sp-divider); }
+  dt { font-weight: 500; width: 70px; flex-shrink: 0; }
+  dd { margin: 0; }
+  .kinds { display: flex; margin-top: 12px; }
+  .kinds span { flex: 1; display: flex; align-items: center; gap: 10px; font-size: 20px; color: var(--sp-navy); }
+  .kinds span + span { border-left: 2px solid var(--sp-sky); padding-left: 12px; }
+  .kinds img { width: 48px; }
+
+  @media (max-width: 960px) {
+    .hero-map { position: relative; width: 100%; min-width: 0; height: 380px; }
+    .fade { background: linear-gradient(180deg, var(--sp-navy) 0%, rgba(26, 43, 128, 0) 22%); }
+    .pin { width: 40px; }
+    .report { left: 16px; right: 16px; bottom: 20px; width: auto; max-width: 400px; padding: 16px 18px; }
+    .report-label { font-size: 15px; }
+    .report-date { font-size: 22px; margin-bottom: 6px; }
+    .extra { display: none !important; }
+    .kinds span { font-size: 17px; }
+    .kinds img { width: 38px; }
+  }
+</style>

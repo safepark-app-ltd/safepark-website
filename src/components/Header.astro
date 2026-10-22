@@ -1,0 +1,146 @@
+---
+import { Image } from 'astro:assets';
+import Button from './Button.astro';
+import logo from '../assets/img/SafeParkLogo4-with-TM.png';
+import { MAP_URL } from '../consts';
+
+export type NavId = 'home' | 'join' | 'guides' | 'contact' | 'sign-up' | 'none';
+
+interface Props {
+  current?: NavId;
+}
+
+const { current = 'none' } = Astro.props;
+
+const links: { id: NavId; label: string; href: string }[] = [
+  { id: 'home', label: 'How it works', href: '/#features' },
+  { id: 'join', label: 'How to join', href: '/#how' },
+  { id: 'guides', label: 'Guides', href: '/guides/' },
+  { id: 'contact', label: 'Contact', href: '/contact/' },
+];
+
+// On a phone only one button fits beside the logo. On the Get access page
+// that button would point at itself, so it becomes Log in instead.
+const onSignUp = current === 'sign-up';
+---
+
+<header class="site-header" data-header>
+  <div class="container bar">
+    <a href="/" class="brand" aria-label="SafePark home">
+      <Image src={logo} alt="SafePark" height={108} densities={[1]} loading="eager" />
+    </a>
+
+    <nav aria-label="Main" class="nav" id="site-nav">
+      {
+        links.map((l) => (
+          <a href={l.href} aria-current={l.id === current ? 'page' : undefined}>
+            {l.label}
+          </a>
+        ))
+      }
+      <a href={MAP_URL} class="nav-login">Log in to the map</a>
+    </nav>
+
+    <div class="actions">
+      <Button href={MAP_URL} variant="outlined" class:list={['login', { 'login--mobile': onSignUp }]}>Log in</Button>
+      {!onSignUp && <Button href="/sign-up/" class="cta">Get access</Button>}
+      <button type="button" class="menu" aria-controls="site-nav" aria-expanded="false" data-menu>
+        <span class="visually-hidden">Menu</span>
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+          <path class="bars" d="M3 6h18M3 12h18M3 18h18"></path>
+          <path class="cross" d="M6 6l12 12M18 6L6 18"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<script>
+  const header = document.querySelector<HTMLElement>('[data-header]');
+  const button = header?.querySelector<HTMLButtonElement>('[data-menu]');
+  button?.addEventListener('click', () => {
+    const open = button.getAttribute('aria-expanded') !== 'true';
+    button.setAttribute('aria-expanded', String(open));
+    header!.toggleAttribute('data-open', open);
+  });
+  // Close the menu after following an in-page link such as /#how.
+  header?.querySelectorAll('.nav a').forEach((a) =>
+    a.addEventListener('click', () => {
+      button?.setAttribute('aria-expanded', 'false');
+      header.removeAttribute('data-open');
+    }),
+  );
+</script>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: var(--sp-white);
+    border-bottom: 1px solid var(--sp-divider);
+  }
+  .bar { height: 83px; display: flex; align-items: center; gap: 32px; }
+  .brand { display: flex; flex-shrink: 0; }
+  .brand img { height: 54px; width: auto; }
+
+  .nav { display: flex; gap: 28px; margin-left: auto; align-items: center; }
+  .nav a {
+    font-family: var(--sp-font-display);
+    font-size: 18px;
+    padding: 6px 0;
+    color: var(--sp-text);
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+  }
+  .nav a:hover { color: var(--sp-navy); }
+  .nav a[aria-current='page'] { color: var(--sp-navy); border-bottom-color: var(--sp-sky); }
+  .nav .nav-login { display: none; }
+
+  .actions { display: flex; gap: 12px; flex-shrink: 0; align-items: center; }
+  .menu {
+    display: none;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--sp-navy);
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+  }
+  .menu .cross { display: none; }
+  [data-open] .menu .bars { display: none; }
+  [data-open] .menu .cross { display: inline; }
+
+  @media (max-width: 960px) {
+    .bar { height: 64px; gap: 10px; }
+    .brand img { height: 40px; }
+    .actions { margin-left: auto; gap: 6px; }
+    .actions :global(.login) { display: none; }
+    .actions :global(.login--mobile) { display: inline-flex; }
+    .actions :global(.btn) { padding: 0 14px; font-size: 15px; }
+    .menu { display: inline-flex; }
+
+    .nav {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      margin: 0;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+      padding: 8px var(--sp-gutter) 16px;
+      background: var(--sp-white);
+      border-bottom: 1px solid var(--sp-divider);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+    }
+    [data-open] .nav { display: flex; }
+    .nav a { padding: 12px 0; border-bottom: 1px solid var(--sp-divider); }
+    .nav a[aria-current='page'] { border-bottom-color: var(--sp-divider); }
+    .nav .nav-login { display: block; border-bottom: 0; }
+  }
+</style>

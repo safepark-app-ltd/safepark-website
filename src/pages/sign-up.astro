@@ -1,0 +1,179 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Accreditations from '../components/Accreditations.astro';
+import FormError from '../components/FormError.astro';
+import { EMAIL, ENQUIRY_URL, MAP_URL, PHONE, PHONE_HREF } from '../consts';
+
+const regions = ['UK only', 'UK and Europe', 'Mostly Europe'];
+
+const steps = [
+  { title: 'We check your details', body: 'Usually within one working day.' },
+  { title: 'We set up your account', body: 'We email you a login for map.safepark.app.' },
+  { title: 'Open the map', body: 'In your phone’s browser, with nothing to install.' },
+];
+---
+
+<BaseLayout
+  title="Get access to SafePark | Secure parking map for drivers"
+  description="Request your SafePark login. Requests are answered within one working day."
+  current="sign-up"
+>
+  <section class="page-hero page-hero--navy hero">
+    <div class="container">
+      <span class="eyebrow">Get access</span>
+      <h1>Start using SafePark</h1>
+      <p class="lead">Tell us a little about yourself and we’ll set up your login for the map. Most requests are answered within one working day.</p>
+    </div>
+  </section>
+
+  <section class="body">
+    <div class="container cols">
+      <div class="panel">
+        <form class="form" action={ENQUIRY_URL} method="post" data-enquiry="access">
+          <div class="form-grid">
+            <label class="field">Your name <input type="text" name="name" autocomplete="name" required maxlength="120" /></label>
+            <label class="field">Email <input type="email" name="email" autocomplete="email" required maxlength="200" /></label>
+            <label class="field">Phone <input type="tel" name="phone" autocomplete="tel" required maxlength="40" /></label>
+            <label class="field"
+              >Where do you drive?
+              <select name="region" required>
+                {regions.map((r) => <option>{r}</option>)}
+              </select>
+            </label>
+            <label class="field"
+              >How did you hear about us? <span class="hint">Optional</span>
+              <input type="text" name="source" maxlength="200" />
+            </label>
+            <label class="field"
+              >Company <span class="hint">Optional</span>
+              <input type="text" name="company" autocomplete="organization" maxlength="200" />
+            </label>
+          </div>
+
+          <label class="field"
+            >Anything else we should know? <span class="hint">Optional</span>
+            <textarea name="message" rows="4" maxlength="4000"></textarea>
+          </label>
+
+          <label class="trap" aria-hidden="true">Leave this empty <input type="text" name="website" tabindex="-1" autocomplete="off" /></label>
+
+          <label class="consent">
+            <input type="checkbox" name="consent" required />
+            <span>I agree to SafePark contacting me about my request. See our <a href="/privacy-policy/">privacy policy</a>.</span>
+          </label>
+
+          <FormError />
+
+          <div class="submit-row">
+            <button type="submit" class="submit">Request access</button>
+            <span class="muted small">Already have an account? <a href={MAP_URL}>Log in to the map</a></span>
+          </div>
+        </form>
+
+        <div class="sent" data-sent hidden>
+          <div class="tick">
+            <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#1a2b80" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg>
+          </div>
+          <h2 tabindex="-1">Thanks, we’ve got your request</h2>
+          <p>We’ll email your login for the map within one working day. If it’s urgent, call us on {PHONE}.</p>
+          <button type="button" class="again" data-again>Back to the form</button>
+        </div>
+      </div>
+
+      <aside>
+        <div>
+          <h2 class="next-title">What happens next</h2>
+          <ol class="next">
+            {
+              steps.map((s, i) => (
+                <li>
+                  <span class="step-num">{i + 1}</span>
+                  <div>
+                    <strong>{s.title}</strong>
+                    <br />
+                    <span class="muted">{s.body}</span>
+                  </div>
+                </li>
+              ))
+            }
+          </ol>
+        </div>
+        <div class="talk">
+          <h2>Prefer to talk?</h2>
+          <p class="talk-phone"><a href={PHONE_HREF}>{PHONE}</a></p>
+          <p><a href={`mailto:${EMAIL}`}>{EMAIL}</a></p>
+        </div>
+        <p class="muted small provider">Are you a parking provider? <a href="/contact/">Get in touch</a>.</p>
+        <Accreditations height={34} />
+      </aside>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  import '../scripts/enquiry';
+</script>
+
+<style>
+  .hero { padding-bottom: 140px; }
+  .body { padding: 0 0 var(--sp-section); }
+  .cols { margin-top: -96px; display: flex; flex-wrap: wrap; gap: 32px; align-items: flex-start; }
+
+  .panel {
+    flex: 999 1 560px;
+    min-width: 0;
+    background: var(--sp-white);
+    border-radius: var(--sp-radius-card);
+    box-shadow: var(--sp-shadow-dialog);
+    padding: 40px;
+  }
+
+  .submit-row { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 24px; }
+  .submit, .again {
+    min-height: 52px;
+    padding: 0 32px;
+    border: 0;
+    border-radius: var(--sp-radius);
+    background: var(--sp-navy);
+    color: var(--sp-white);
+    font-family: var(--sp-font-display);
+    font-size: 19px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    cursor: pointer;
+    box-shadow: var(--sp-shadow-button);
+  }
+  .submit:hover { background: var(--sp-navy-dark); }
+  .submit:disabled { opacity: 0.7; cursor: progress; }
+
+  .sent { text-align: center; padding: 40px 12px; }
+  .tick { width: 72px; height: 72px; border-radius: 50%; background: var(--sp-sky-light); display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; }
+  .sent h2 { font-size: 34px; margin: 0 0 10px; }
+  .sent h2:focus { outline: none; }
+  .sent p { margin: 0 auto 28px; max-width: 46ch; color: rgba(0, 0, 0, 0.65); }
+  .again { min-height: 44px; padding: 0 22px; font-size: 17px; background: transparent; color: var(--sp-navy); border: 1px solid rgba(26, 43, 128, 0.5); box-shadow: none; }
+
+  aside { flex: 1 1 320px; display: flex; flex-direction: column; gap: 24px; padding-top: 128px; }
+  .next-title { font-size: 26px; margin: 0 0 18px; }
+  .next { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 18px; }
+  .next li { display: flex; gap: 14px; }
+  .next .step-num { width: 36px; height: 36px; font-size: 19px; }
+  .next strong { font-weight: 500; }
+  .talk { background: var(--sp-page); border-radius: var(--sp-radius-card); padding: 24px; }
+  .talk h2 { font-size: 22px; margin: 0 0 6px; }
+  .talk p { margin: 0; }
+  .talk-phone { font-family: var(--sp-font-display); font-size: 24px; margin-bottom: 4px !important; }
+  .talk-phone a { text-decoration: none; }
+  .provider { margin: 0; }
+
+  @media (max-width: 900px) {
+    aside { padding-top: 0; }
+  }
+
+  @media (max-width: 600px) {
+    .hero { padding-bottom: 96px; }
+    .cols { margin-top: -64px; }
+    .panel { padding: 24px 20px; }
+    .submit { width: 100%; }
+  }
+</style>

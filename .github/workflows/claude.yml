@@ -1,0 +1,96 @@
+name: Claude Code
+
+# Mention @claude in an issue, an issue comment or a PR review to get Claude
+# working on this repo. Conventions are in CLAUDE.md:
+#   @claude plan       → Claude replies with a plan and does not open a PR.
+#   @claude implement  → Claude makes a branch, pushes it and a PR is opened.
+#
+# The repo is public. claude-code-action only runs for people with write access
+# to the repo, so outside users can't trigger it.
+#
+# Secrets:
+#   CLAUDE_CODE_OAUTH_TOKEN  Claude subscription token from `claude setup-token`.
+#   CLAUDE_GITHUB_TOKEN      Fine-grained PAT for this repo (Contents, Issues and
+#                            Pull requests: read and write).
+
+on:
+  issue_comment:
+    types: [created]
+  pull_request_review_comment:
+    types: [created]
+  issues:
+    types: [opened, assigned]
+  pull_request_review:
+    types: [submitted]
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+concurrency:
+  group: claude-${{ github.event.issue.number || github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: false
+
+jobs:
+  claude:
+    if: |
+      (github.event_name == 'issue_comment' && contains(github.event.comment.body, '@claude')) ||
+      (github.event_name == 'pull_request_review_comment' && contains(github.event.comment.body, '@claude')) ||
+      (github.event_name == 'pull_request_review' && contains(github.event.review.body, '@claude')) ||
+      (github.event_name == 'issues' && (contains(github.event.issue.body, '@claude') || contains(github.event.issue.title, '@claude')))
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+      id-token: write
+      actions: read
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 1
+          token: ${{ secrets.CLAUDE_GITHUB_TOKEN }}
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - name: Run Claude Code
+        id: claude
+        uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          github_token: ${{ secrets.CLAUDE_GITHUB_TOKEN }}
+          # Use the Bash(cmd:*) form. "Bash(cmd *)" doesn't match and fails silently.
+          claude_args: >-
+            --max-turns 200
+            --allowedTools 'Bash(npm ci:*),Bash(npm install:*),Bash(npm run:*),Bash(npx astro:*),Bash(git add:*),Bash(git commit:*),Bash(git rm:*),Bash(git mv:*),Bash(git push:*),Bash(git status:*),Bash(git diff:*),Bash(git log:*)'
+
+      # The action pushes a branch but only posts a "Create PR" link. Open the PR
+      # so the flow runs issue → branch → PR without anyone clicking. A person
+      # still reviews and merges. branch_name is empty unless Claude made a
+      # branch, so a plan-only reply opens nothing. The issue title goes through
+      # env vars, not inline ${{ }}, so a crafted title can't inject shell.
+      # Needs Settings → Actions → General → "Allow GitHub Actions to create and
+      # approve pull requests". Without it this logs a warning and the "Create PR"
+      # link on the issue still works.
+      - name: Open the pull request for Claude's branch
+        if: steps.claude.outputs.branch_name != '' && (github.event_name == 'issues' || github.event_name == 'issue_comment')
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          BRANCH: ${{ steps.claude.outputs.branch_name }}
+          ISSUE: ${{ github.event.issue.number }}
+          TITLE: ${{ github.event.issue.title }}
+        run: |
+          if [ -n "$(gh pr list --repo "$REPO" --head "$BRANCH" --json number -q '.[0].number')" ]; then
+            echo "A PR already exists for $BRANCH."
+            exit 0
+          fi
+          git fetch --depth=1 origin "$BRANCH" >/dev/null 2>&1 || true
+          SUMMARY=$(git log -1 --format=%s "origin/$BRANCH" 2>/dev/null)
+          [ -z "$SUMMARY" ] && SUMMARY="$TITLE"
+          BODY=$(printf '%s\n\nCloses #%s\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)' "$SUMMARY" "$ISSUE")
+          gh pr create --repo "$REPO" --base main --head "$BRANCH" --title "$TITLE" --body "$BODY" \
+            || echo "::warning::Couldn't open the PR. Turn on 'Allow GitHub Actions to create and approve pull requests' in Settings → Actions → General. Branch $BRANCH is pushed."

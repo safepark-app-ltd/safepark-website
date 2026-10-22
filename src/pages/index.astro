@@ -1,0 +1,350 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/Button.astro';
+import HeroMap from '../components/HeroMap.astro';
+import Accreditations from '../components/Accreditations.astro';
+import GuideCard from '../components/GuideCard.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { EMAIL, MAP_URL, PHONE, PHONE_HREF } from '../consts';
+
+import iconSecure from '../assets/icons/info-secure.png';
+import iconCrime from '../assets/icons/pin-crime-new.png';
+import iconTruckstop from '../assets/icons/pin-truckstop.png';
+import iconRoute from '../assets/icons/icon-lightning-arrow.svg';
+import iconPound from '../assets/icons/icon-pound.svg';
+import iconReport from '../assets/icons/icon-mobile-report.svg';
+import fuel from '../assets/icons/crime-theft-fuel.png';
+import tank from '../assets/icons/crime-damage-tank.png';
+import cargo from '../assets/icons/crime-theft-cargo-trailer.png';
+import hijack from '../assets/icons/crime-hijack.png';
+import theft from '../assets/icons/crime-theft.png';
+import cctv from '../assets/icons/info-cctv.png';
+
+const features = [
+  { icon: iconSecure, title: 'Vetted parking locations', body: 'Every listed site is vetted, and its facilities are clearly labelled so drivers know what to expect before they arrive.' },
+  { icon: iconCrime, title: 'Live cargo-crime updates', body: 'Check whether a location has had reported incidents before you stop. Crime data is refreshed twice daily.' },
+  { icon: iconTruckstop, title: 'Parking availability', body: 'Locate and book secure parking along the route instead of searching for a safe spot at the end of a shift.' },
+  { icon: iconRoute, title: 'Route planning', body: 'Build secure stops into journey schedules to save fuel and time and avoid unplanned stops.' },
+  { icon: iconPound, title: 'Transparent pricing', body: 'Clear prices from each parking provider, so you know the cost before you pull in.' },
+  { icon: iconReport, title: 'Report a crime instantly', body: 'Add and report incidents from the map, helping keep the picture current for everyone.' },
+];
+
+const why = [
+  'Crime locations updated twice daily.',
+  'Significantly reduce the risk of freight and fuel theft.',
+  'Secure parking locations across the UK and Europe.',
+  'Search by SafePark, ParkMark, TAPA, ESPORG, Travis and Park Safe Network.',
+  'Make better use of driver hours.',
+  'Easy-to-understand pictograms for every crime category.',
+];
+
+const pictos = [
+  { icon: fuel, label: 'Fuel theft' },
+  { icon: tank, label: 'Tank damage' },
+  { icon: cargo, label: 'Cargo theft' },
+  { icon: hijack, label: 'Hijack' },
+  { icon: theft, label: 'Theft' },
+  { icon: cctv, label: 'CCTV sites' },
+];
+
+const benefits = [
+  { title: 'Reduces risk', body: 'Plan stops that put security first, using live crime data and vetted locations.' },
+  { title: 'Improves efficiency', body: 'Spend your hours driving, not hunting for somewhere to park.' },
+  { title: 'Saves money', body: 'Avoiding theft, damage and wasted hours costs far less than a bad night’s stop.' },
+  { title: 'Driver wellbeing', body: 'Rest without fear, and start the next shift alert and refreshed.' },
+];
+
+const steps = [
+  { title: 'Request access', body: `Fill in the short form, or call us on ${PHONE}.` },
+  { title: 'We set up your account', body: 'We create your account and email you a login for map.safepark.app.' },
+  { title: 'Open the map', body: 'Log in from your phone’s browser, wherever you are. There’s nothing to install.' },
+];
+
+const guides = (await getCollection('guides', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.published.valueOf() - a.data.published.valueOf())
+  .slice(0, 4);
+---
+
+<BaseLayout
+  title="SafePark | Secure truck parking and cargo-crime map for HGV drivers"
+  description="Find vetted, secure lorry parking across the UK and Europe, and see where cargo and fuel crime is happening before you stop."
+  current="home"
+>
+  <section class="hero">
+    <HeroMap />
+    <div class="container hero-inner">
+      <div class="hero-text">
+        <span class="eyebrow">For truck drivers</span>
+        <h1>Drive, Park, Relax.<span>Secure at every stop.</span></h1>
+        <p class="lead">
+          Find vetted, secure truck parking across the UK and Europe, and see where cargo and fuel crime is happening before you stop.
+          Crime locations are updated twice a day.
+        </p>
+        <div class="hero-actions">
+          <Button href="/sign-up/" variant="on-dark" size="lg">Get access</Button>
+          <Button href={MAP_URL} variant="ghost-dark" size="lg">Open the map</Button>
+        </div>
+        <p class="hero-note">Already registered? <a href={MAP_URL}>Log in to the map</a> with your SafePark login.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="accredited">
+    <div class="container accredited-inner">
+      <span class="accredited-label">Search accredited parking</span>
+      <Accreditations />
+    </div>
+  </section>
+
+  <section id="features" class="section">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">What the app does</span>
+        <h2>Built to make cargo crime harder</h2>
+        <p class="lead">SafePark was designed with drivers in mind: one map that shows where it is safe to stop, and where it is not.</p>
+      </div>
+      <div class="grid">
+        {
+          features.map((f) => (
+            <div class="card feature">
+              <div class="feature-icon">
+                <Image src={f.icon} alt="" width={42} height={42} densities={[1, 2]} />
+              </div>
+              <h3>{f.title}</h3>
+              <p>{f.body}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tint">
+    <div class="container why">
+      <div>
+        <span class="eyebrow">Why do I need SafePark?</span>
+        <h2>Know the risk before you stop</h2>
+        <ul class="ticks">
+          {
+            why.map((w) => (
+              <li>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M5 12l5 5L20 7" />
+                </svg>
+                <span>{w}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+      <ul class="pictos" aria-label="Crime categories on the map">
+        {
+          pictos.map((p) => (
+            <li>
+              <Image src={p.icon} alt="" width={72} height={72} densities={[1, 2]} />
+              {p.label}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <span class="eyebrow">Benefits</span>
+      <h2 class="benefits-title">Safer stops, better rest</h2>
+      <div class="grid benefits" style="--min: 240px">
+        {
+          benefits.map((b) => (
+            <div>
+              <h3>{b.title}</h3>
+              <p>{b.body}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section id="how" class="section section--navy">
+    <div class="container">
+      <span class="eyebrow">How to join</span>
+      <h2 class="steps-title">Up and running in three steps</h2>
+      <ol class="grid steps" style="--min: 260px">
+        {
+          steps.map((s, i) => (
+            <li>
+              <span class="step-num">{i + 1}</span>
+              <h3>{s.title}</h3>
+              <p>{s.body}</p>
+            </li>
+          ))
+        }
+      </ol>
+      <div class="steps-cta"><Button href="/sign-up/" variant="on-dark" size="lg">Request access</Button></div>
+    </div>
+  </section>
+
+  <section class="section section--tint">
+    <div class="container">
+      <div class="guides-head">
+        <div>
+          <span class="eyebrow">Guides</span>
+          <h2>Advice for drivers</h2>
+        </div>
+        <a href="/guides/" class="text-action">All guides →</a>
+      </div>
+      <div class="grid" style="--min: 250px">
+        {guides.map((g) => <GuideCard guide={g} variant="compact" />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="welfare-wrap">
+    <div class="container">
+      <div class="welfare">
+        <div>
+          <h3>Driver welfare</h3>
+          <p>SafePark is at the centre of driver welfare. Find bereavement, mental-health and advice services in one place.</p>
+        </div>
+        <Button href="/driver-welfare/">Find support</Button>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <CtaBand title="Find a safe place to stop" centred>
+        <p>Take the guesswork out of where to park tonight. With SafePark you know a stop is safe before you pull in.</p>
+        <Fragment slot="actions">
+          <Button href="/sign-up/" variant="on-dark" size="lg">Get access</Button>
+          <Button href={MAP_URL} variant="ghost-dark" size="lg">Log in to the map</Button>
+        </Fragment>
+        <p slot="after" class="cta-contact">
+          Call <a href={PHONE_HREF}>{PHONE}</a> · <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
+        </p>
+      </CtaBand>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero { position: relative; background: var(--sp-navy); color: var(--sp-white); overflow: hidden; }
+  .hero-inner { position: relative; }
+  .hero-text { max-width: 560px; padding: 96px 0; }
+  .hero .eyebrow { color: var(--sp-sky); }
+  h1 { font-size: clamp(40px, 5.4vw, 68px); color: var(--sp-white); margin-bottom: 20px; }
+  h1 span { display: block; color: var(--sp-sky); }
+  .hero .lead { color: var(--sp-on-navy); margin-bottom: 32px; }
+  .hero-actions { display: flex; flex-wrap: wrap; gap: 14px; }
+  .hero-note { margin: 18px 0 0; font-size: 14px; color: var(--sp-on-navy-muted); }
+  .hero-note a { color: var(--sp-white); }
+
+  .accredited { padding: 32px 0; border-bottom: 1px solid var(--sp-divider); }
+  .accredited-inner { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 24px 44px; }
+  .accredited-label { font-family: var(--sp-font-display); font-size: 16px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--sp-text-muted); }
+  .accredited :global(.logos) { justify-content: center; gap: 24px 44px; }
+
+  .feature-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: var(--sp-sky-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 18px;
+  }
+  .feature-icon img { width: 42px; height: 42px; object-fit: contain; }
+  .feature h3 { margin: 0 0 8px; }
+  .feature p { margin: 0; color: var(--sp-text-muted); }
+
+  .why { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(340px, 100%), 1fr)); gap: 64px; align-items: center; }
+  .why h2 { margin-bottom: 24px; }
+  .ticks { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 14px; }
+  .ticks li { display: flex; gap: 14px; align-items: flex-start; }
+  .ticks svg {
+    flex: 0 0 28px;
+    height: 28px;
+    padding: 7px;
+    margin-top: 1px;
+    border-radius: 50%;
+    background: var(--sp-navy);
+  }
+  .pictos {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    background: var(--sp-white);
+    border-radius: var(--sp-radius-card);
+    box-shadow: var(--sp-shadow-card);
+    overflow: hidden;
+  }
+  .pictos li {
+    padding: 26px 12px;
+    text-align: center;
+    font-family: var(--sp-font-display);
+    font-size: 19px;
+    color: var(--sp-navy);
+    border-right: 1px solid var(--sp-divider);
+    border-bottom: 1px solid var(--sp-divider);
+  }
+  .pictos img { width: 72px; height: 72px; object-fit: contain; margin: 0 auto 10px; }
+
+  .benefits-title { margin-bottom: 40px; }
+  .benefits { gap: 32px; }
+  .benefits > div { border-top: 3px solid var(--sp-sky); padding-top: 20px; }
+  .benefits h3 { margin: 0 0 8px; }
+  .benefits p { margin: 0; color: var(--sp-text-muted); }
+
+  .steps-title { margin-bottom: 48px; }
+  .steps { list-style: none; margin: 0; padding: 0; gap: 32px; }
+  .steps .step-num { margin-bottom: 18px; }
+  .steps h3 { margin: 0 0 8px; }
+  .steps p { margin: 0; color: rgba(255, 255, 255, 0.8); }
+  .steps-cta { margin-top: 44px; }
+
+  .guides-head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px; margin-bottom: 40px; }
+  .guides-head h2 { margin: 0; }
+
+  .welfare-wrap { padding: var(--sp-section) 0 0; }
+  .welfare {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 24px 32px;
+    background: var(--sp-sky-light);
+    border-radius: var(--sp-radius-card);
+    padding: 36px 40px;
+  }
+  .welfare > div { flex: 1 1 420px; }
+  .welfare h3 { font-size: 26px; margin: 0 0 4px; }
+  .welfare p { margin: 0; color: rgba(0, 0, 0, 0.68); }
+
+  .cta-contact { margin: 28px 0 0; font-family: var(--sp-font-display); font-size: 18px; color: var(--sp-on-navy); }
+  .cta-contact a { color: var(--sp-white); text-decoration: none; }
+
+  @media (max-width: 960px) {
+    .hero { display: flex; flex-direction: column-reverse; }
+    .hero-text { padding: 40px 0 32px; max-width: none; }
+  }
+
+  @media (max-width: 600px) {
+    h1 { font-size: 40px; }
+    .hero .lead { font-size: 17px; }
+    .hero-actions { flex-direction: column; }
+    .hero-actions :global(.btn) { width: 100%; }
+    .accredited-inner { flex-direction: column; gap: 16px; }
+    .accredited :global(.logos) { gap: 18px 24px; }
+    .accredited :global(img) { height: 32px !important; }
+    .why { gap: 40px; }
+    .pictos li { font-size: 16px; padding: 18px 6px; }
+    .pictos img { width: 56px; height: 56px; }
+    .welfare { padding: 28px 20px; }
+  }
+</style>

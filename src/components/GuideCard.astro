@@ -1,0 +1,64 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { Image } from 'astro:assets';
+import { guideIcons } from '../data/guideIcons';
+
+interface Props {
+  guide: CollectionEntry<'guides'>;
+  // 'compact' is the home-page card with a sky rule and no picture or excerpt.
+  variant?: 'compact' | 'full';
+}
+
+const { guide, variant = 'full' } = Astro.props;
+const { shortTitle, title, description, readMinutes, icon } = guide.data;
+---
+
+<a href={`/${guide.id}/`} class:list={['guide', `guide--${variant}`]}>
+  {
+    variant === 'full' ? (
+      <div class="art">
+        <Image src={guideIcons[icon]} alt="" height={92} densities={[1, 2]} />
+      </div>
+    ) : (
+      <div class="rule" />
+    )
+  }
+  <div class="body">
+    <span class="meta">{readMinutes} min read</span>
+    <h3>{shortTitle ?? title}</h3>
+    {variant === 'full' && <p>{description}</p>}
+    <span class="more">Read more →</span>
+  </div>
+</a>
+
+<style>
+  .guide {
+    display: flex;
+    flex-direction: column;
+    background: var(--sp-white);
+    border-radius: var(--sp-radius-card);
+    box-shadow: var(--sp-shadow-card);
+    overflow: hidden;
+    text-decoration: none;
+    color: var(--sp-text);
+    transition: box-shadow 0.2s;
+  }
+  .guide:hover { color: var(--sp-text); box-shadow: 0 6px 22px rgba(0, 0, 0, 0.2); }
+  .guide:hover h3 { text-decoration: underline; }
+  .rule { height: 8px; background: var(--sp-sky); }
+  .art { height: 140px; background: var(--sp-sky-light); display: flex; align-items: center; justify-content: center; }
+  .art img { height: 92px; width: auto; }
+  .body { padding: 24px; display: flex; flex-direction: column; flex: 1; }
+  .meta {
+    font-family: var(--sp-font-display);
+    font-size: 14px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--sp-sky-text);
+    margin-bottom: 8px;
+  }
+  h3 { font-size: 23px; line-height: 1.25; margin: 0 0 10px; }
+  .guide--compact h3 { font-size: 21px; margin-bottom: 16px; }
+  p { margin: 0 0 18px; color: var(--sp-text-muted); font-size: 15px; }
+  .more { margin-top: auto; font-family: var(--sp-font-display); color: var(--sp-navy); text-transform: uppercase; letter-spacing: 0.04em; }
+</style>

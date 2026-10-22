@@ -1,0 +1,77 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { welfare } from '../data/welfare';
+
+const site = (url: string) => new URL(url).hostname.replace(/^www\./, '');
+---
+
+<BaseLayout
+  title="Support services for truck drivers | SafePark"
+  description="Bereavement, mental health, addiction and advice services for drivers, in one place."
+>
+  <section class="page-hero page-hero--sky">
+    <div class="container">
+      <span class="eyebrow">Driver welfare</span>
+      <h1>Support when you need it</h1>
+      <p class="lead">SafePark is at the centre of driver welfare. Life on the road can be hard. These organisations offer free, confidential help.</p>
+    </div>
+  </section>
+
+  <section class="body">
+    <div class="container">
+      <div class="urgent">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#99bce4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"></path></svg>
+        <p>Need to talk now? Call Samaritans free on <a href="tel:116123"><strong>116 123</strong></a>, any time, day or night.</p>
+        <span>In an emergency, call 999.</span>
+      </div>
+
+      <ul class="grid orgs" style="--min: 260px">
+        {
+          welfare.map((o) => (
+            <li class="card org">
+              <span class="topic">{o.topic}</span>
+              <h2>{o.name}</h2>
+              <p>{o.body}</p>
+              <a href={o.url} rel="noopener" class="text-action">
+                {site(o.url)} <span aria-hidden="true">↗</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .body { padding: 0 0 var(--sp-section); }
+  .urgent {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px 24px;
+    background: var(--sp-navy);
+    color: var(--sp-white);
+    border-radius: var(--sp-radius-card);
+    padding: 22px 28px;
+    margin: -28px 0 40px;
+    box-shadow: var(--sp-shadow-card);
+    position: relative;
+  }
+  .urgent p { margin: 0; font-family: var(--sp-font-display); font-size: 20px; flex: 1 1 400px; }
+  .urgent a { color: var(--sp-white); }
+  .urgent strong { font-weight: 500; }
+  .urgent span { font-size: 15px; color: rgba(255, 255, 255, 0.8); }
+
+  .orgs { list-style: none; margin: 0; padding: 0; }
+  .org { display: flex; flex-direction: column; padding: 26px; }
+  .topic { font-family: var(--sp-font-display); font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--sp-sky-text); margin-bottom: 6px; }
+  .org h2 { font-size: 24px; line-height: 1.2; margin: 0 0 8px; }
+  .org p { margin: 0 0 18px; color: rgba(0, 0, 0, 0.65); font-size: 15px; }
+  .org a { margin-top: auto; font-size: 16px; }
+
+  @media (max-width: 600px) {
+    .urgent { padding: 20px; }
+    .urgent p { flex-basis: 100%; font-size: 18px; }
+  }
+</style>

@@ -1,0 +1,22 @@
+version: 2
+updates:
+  # Routine updates, grouped into one PR a week. Major versions are left for a
+  # person to do (an Astro major usually needs code changes).
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      dependencies:
+        patterns: ['*']
+    ignore:
+      - dependency-name: '*'
+        update-types: ['version-update:semver-major']
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      actions:
+        patterns: ['*']

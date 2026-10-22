@@ -1,0 +1,123 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/Button.astro';
+import FormError from '../components/FormError.astro';
+import { EMAIL, ENQUIRY_URL, MAP_URL, PHONE, PHONE_HREF } from '../consts';
+---
+
+<BaseLayout
+  title="Contact SafePark | Secure truck parking"
+  description={`Questions about the SafePark app, your account or listing a parking site? Call ${PHONE} or email ${EMAIL}.`}
+  current="contact"
+>
+  <section class="page-hero">
+    <div class="container">
+      <span class="eyebrow">Contact</span>
+      <h1>Talk to the SafePark team</h1>
+      <p class="lead">Questions about the app, your account or listing a parking site? Get in touch.</p>
+    </div>
+  </section>
+
+  <section class="body">
+    <div class="container cols">
+      <div class="details">
+        <div class="item">
+          <span class="icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1a2b80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"></path></svg>
+          </span>
+          <div><div class="label">Phone</div><a href={PHONE_HREF} class="value">{PHONE}</a></div>
+        </div>
+        <div class="item">
+          <span class="icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1a2b80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="M22 6l-10 7L2 6"></path></svg>
+          </span>
+          <div><div class="label">Email</div><a href={`mailto:${EMAIL}`} class="value">{EMAIL}</a></div>
+        </div>
+        <div class="start">
+          <h2>Want to start using SafePark?</h2>
+          <p>The quickest way is our access request form.</p>
+          <Button href="/sign-up/">Get access</Button>
+        </div>
+        <p class="muted small">Already registered? <a href={MAP_URL}>Log in to the map</a>. If you can’t log in, call or email us and we’ll help.</p>
+      </div>
+
+      <div class="panel">
+        <form class="form" action={ENQUIRY_URL} method="post" data-enquiry="contact">
+          <h2>Send us a message</h2>
+          <div class="form-grid">
+            <label class="field">First name <input type="text" name="firstName" autocomplete="given-name" required maxlength="60" /></label>
+            <label class="field">Last name <input type="text" name="lastName" autocomplete="family-name" required maxlength="60" /></label>
+          </div>
+          <label class="field">Email <input type="email" name="email" autocomplete="email" required maxlength="200" /></label>
+          <label class="field">Message <textarea name="message" rows="6" required maxlength="4000"></textarea></label>
+          <label class="trap" aria-hidden="true">Leave this empty <input type="text" name="website" tabindex="-1" autocomplete="off" /></label>
+          <FormError />
+          <div><button type="submit" class="submit">Send message</button></div>
+        </form>
+
+        <div class="sent" data-sent hidden>
+          <h2 tabindex="-1">Message sent</h2>
+          <p>Thanks for getting in touch. We’ll reply by email.</p>
+          <button type="button" class="again" data-again>Send another</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  import '../scripts/enquiry';
+</script>
+
+<style>
+  .body { padding: 64px 0 var(--sp-section); }
+  .cols { display: flex; flex-wrap: wrap; gap: 48px; align-items: flex-start; }
+
+  .details { flex: 1 1 320px; display: flex; flex-direction: column; gap: 20px; }
+  .details p { margin: 0; }
+  .item { display: flex; gap: 16px; align-items: flex-start; }
+  .icon { flex: 0 0 52px; height: 52px; border-radius: 50%; background: var(--sp-sky-light); display: flex; align-items: center; justify-content: center; }
+  .label { font-family: var(--sp-font-display); font-size: 15px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--sp-text-muted); }
+  .value { font-family: var(--sp-font-display); font-size: 26px; text-decoration: none; overflow-wrap: anywhere; }
+  .start { background: var(--sp-page); border-radius: var(--sp-radius-card); padding: 24px; margin-top: 12px; }
+  .start h2 { font-size: 22px; margin: 0 0 6px; }
+  .start p { margin: 0 0 16px; color: rgba(0, 0, 0, 0.65); font-size: 16px; }
+
+  .panel {
+    flex: 999 1 520px;
+    min-width: 0;
+    background: var(--sp-white);
+    border-radius: var(--sp-radius-card);
+    box-shadow: var(--sp-shadow-card);
+    padding: 36px;
+  }
+  .form { gap: 18px; }
+  .form h2 { font-size: 28px; margin: 0; }
+  .submit, .again {
+    min-height: 52px;
+    padding: 0 32px;
+    border: 0;
+    border-radius: var(--sp-radius);
+    background: var(--sp-navy);
+    color: var(--sp-white);
+    font-family: var(--sp-font-display);
+    font-size: 19px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+  .submit:hover { background: var(--sp-navy-dark); }
+  .submit:disabled { opacity: 0.7; cursor: progress; }
+  .sent { text-align: center; padding: 48px 12px; }
+  .sent h2 { font-size: 32px; margin: 0 0 10px; }
+  .sent h2:focus { outline: none; }
+  .sent p { margin: 0 0 24px; color: rgba(0, 0, 0, 0.65); }
+  .again { min-height: 44px; padding: 0 22px; font-size: 17px; background: transparent; color: var(--sp-navy); border: 1px solid rgba(26, 43, 128, 0.5); }
+
+  @media (max-width: 600px) {
+    .body { padding-top: 32px; }
+    .panel { padding: 24px 20px; }
+    .submit { width: 100%; }
+    .value { font-size: 22px; }
+  }
+</style>

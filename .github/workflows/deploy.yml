@@ -1,0 +1,68 @@
+name: Deploy
+
+# Merging a pull request into main builds the site, publishes it to GitHub
+# Pages and records a GitHub Release. The marketing site deploys on its own,
+# outside the platform's coordinated release (see docs/deploy.md).
+#
+# Repository variables (Settings → Secrets and variables → Actions → Variables):
+#   SITE_URL            https://preview.safepark.app until go-live, then https://safepark.app.
+#                       Anything other than https://safepark.app builds a noindex site.
+#   PUBLIC_ENQUIRY_URL  Optional. Overrides the park-backend-2 form endpoint in src/consts.ts.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    env:
+      SITE_URL: ${{ vars.SITE_URL || 'https://preview.safepark.app' }}
+      PUBLIC_ENQUIRY_URL: ${{ vars.PUBLIC_ENQUIRY_URL }}
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Build and upload the site
+        uses: withastro/action@v6
+        with:
+          node-version: 22
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5
+
+  release:
+    needs: deploy
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Create a release for this deploy
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          SHA: ${{ github.sha }}
+          RUN: ${{ github.run_number }}
+        run: |
+          tag="v$(date -u +%Y.%m.%d)-$RUN"
+          gh release create "$tag" --repo "$REPO" --target "$SHA" --title "$tag" --generate-notes

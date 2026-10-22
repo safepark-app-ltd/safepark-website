@@ -1,0 +1,54 @@
+name: CI
+
+# Runs on every pull request to main. Branch protection on main requires the
+# `ci` check, so nothing merges (and so nothing deploys) unless this passes.
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened, ready_for_review]
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+concurrency:
+  group: ci-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  ci:
+    name: ci
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Security audit (production dependencies, high and critical)
+        run: npm audit --omit=dev --audit-level=high
+
+      - name: Type-check
+        run: npm run check
+
+      - name: Build
+        run: npm run build
+
+      - name: Check internal links
+        run: npm run linkcheck
+
+      # Download from the run's Summary page and open dist/index.html with
+      # `npx serve dist` to review a change before merging.
+      - name: Upload the built site
+        uses: actions/upload-artifact@v7
+        with:
+          name: site-pr-${{ github.event.pull_request.number }}
+          path: dist/
+          retention-days: 7

@@ -1,0 +1,227 @@
+/*
+ * SafePark site styles. Tokens come from the map app (map-two/src/app/theme.tsx
+ * and the MUI defaults it inherits). See docs/STYLE.md for the rules.
+ * Component-specific styles live in each component's <style> block.
+ */
+
+:root {
+  /* Brand: primary (navy), matches MUI palette.primary */
+  --sp-navy: #1a2b80;
+  --sp-navy-dark: #000453;
+
+  /* Brand: secondary (sky), matches MUI palette.secondary */
+  --sp-sky: #99bce4;
+  --sp-sky-light: #cbeeff;
+  --sp-sky-dark: #698cb2;
+  /* Darker sky for small text on white (passes 4.5:1) */
+  --sp-sky-text: #5a7698;
+
+  /* Signal: red is for crime alerts only, never decoration */
+  --sp-red: #d32f2f;
+
+  /* Neutrals */
+  --sp-white: #ffffff;
+  --sp-page: #f6f8fc;
+  --sp-text: rgba(0, 0, 0, 0.87);
+  --sp-text-muted: rgba(0, 0, 0, 0.62);
+  --sp-divider: rgba(0, 0, 0, 0.12);
+  --sp-on-navy: rgba(255, 255, 255, 0.84);
+  --sp-on-navy-muted: rgba(255, 255, 255, 0.72);
+
+  /* Type */
+  --sp-font-display: 'Oswald Variable', 'Arial Narrow', sans-serif;
+  --sp-font-body: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+
+  /* Shape and depth */
+  --sp-radius: 4px;
+  --sp-radius-card: 12px;
+  --sp-shadow-button: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px rgba(0, 0, 0, 0.14), 0 1px 5px rgba(0, 0, 0, 0.12);
+  --sp-shadow-card: 0 3px 14px rgba(0, 0, 0, 0.16);
+  --sp-shadow-dialog: 0 11px 15px -7px rgba(0, 0, 0, 0.2), 0 24px 38px 3px rgba(0, 0, 0, 0.14), 0 9px 46px 8px rgba(0, 0, 0, 0.12);
+
+  --sp-max: 1180px;
+  --sp-gutter: 24px;
+  --sp-section: 96px;
+}
+
+@media (max-width: 900px) {
+  :root { --sp-section: 64px; }
+}
+
+@media (max-width: 600px) {
+  :root { --sp-gutter: 16px; --sp-section: 48px; }
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+[hidden] { display: none !important; }
+
+html { -webkit-text-size-adjust: 100%; scroll-padding-top: 96px; }
+
+body {
+  margin: 0;
+  background: var(--sp-white);
+  color: var(--sp-text);
+  font-family: var(--sp-font-body);
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+
+a { color: var(--sp-navy); }
+a:hover { color: var(--sp-navy-dark); }
+
+:focus-visible { outline: 3px solid var(--sp-sky-dark); outline-offset: 2px; }
+
+h1, h2, h3 {
+  font-family: var(--sp-font-display);
+  font-weight: 400;
+  line-height: 1.15;
+  margin: 0 0 0.5em;
+  color: var(--sp-navy);
+}
+
+h1 { font-size: clamp(38px, 5vw, 58px); line-height: 1.1; }
+h2 { font-size: clamp(30px, 3.4vw, 44px); }
+h3 { font-size: 24px; }
+
+p { margin: 0 0 1em; }
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.skip-link {
+  position: absolute;
+  left: 16px;
+  top: -100px;
+  z-index: 100;
+  padding: 10px 16px;
+  background: var(--sp-navy);
+  color: var(--sp-white);
+  font-family: var(--sp-font-display);
+}
+.skip-link:focus { top: 12px; color: var(--sp-white); }
+
+/* Layout */
+
+.container {
+  width: 100%;
+  max-width: var(--sp-max);
+  margin: 0 auto;
+  padding: 0 var(--sp-gutter);
+}
+
+.section { padding: var(--sp-section) 0; }
+.section--tint { background: var(--sp-page); }
+.section--navy { background: var(--sp-navy); color: var(--sp-white); }
+.section--navy h2, .section--navy h3 { color: var(--sp-white); }
+
+.section-head { max-width: 720px; margin-bottom: 48px; }
+
+.eyebrow {
+  display: block;
+  margin-bottom: 12px;
+  font-family: var(--sp-font-display);
+  font-size: 15px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--sp-sky-text);
+}
+.section--navy .eyebrow, .page-hero--navy .eyebrow { color: var(--sp-sky); }
+
+.lead { font-size: 19px; color: var(--sp-text-muted); margin: 0; max-width: 62ch; }
+.section--navy .lead, .page-hero--navy .lead { color: var(--sp-on-navy); }
+
+.muted { color: var(--sp-text-muted); }
+.small { font-size: 15px; }
+
+/* Page hero used by every page except home */
+
+.page-hero { background: var(--sp-page); padding: 72px 0 56px; border-bottom: 1px solid rgba(0, 0, 0, 0.08); }
+.page-hero h1 { margin-bottom: 14px; }
+.page-hero--navy { background: var(--sp-navy); color: var(--sp-white); border-bottom: 0; }
+.page-hero--navy h1 { color: var(--sp-white); }
+.page-hero--sky { background: var(--sp-sky-light); border-bottom: 0; }
+.page-hero--sky .eyebrow { color: #3d5a7c; }
+.page-hero--sky .lead { color: rgba(0, 0, 0, 0.7); }
+
+@media (max-width: 600px) {
+  .page-hero { padding: 40px 0 32px; }
+}
+
+/* Cards */
+
+.card {
+  background: var(--sp-white);
+  border-radius: var(--sp-radius-card);
+  box-shadow: var(--sp-shadow-card);
+  padding: 28px;
+}
+
+.grid { display: grid; gap: 24px; grid-template-columns: repeat(auto-fit, minmax(min(var(--min, 300px), 100%), 1fr)); }
+
+/* Steps: numbered sky circles */
+
+.step-num {
+  flex: 0 0 auto;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: var(--sp-sky);
+  color: var(--sp-navy-dark);
+  font-family: var(--sp-font-display);
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Text links styled as display-type actions ("All guides →") */
+
+.text-action {
+  font-family: var(--sp-font-display);
+  font-size: 17px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--sp-navy);
+}
+
+/* Forms */
+
+.form { display: flex; flex-direction: column; gap: 22px; }
+.form-grid { display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr)); }
+
+.field { display: flex; flex-direction: column; gap: 6px; font-family: var(--sp-font-display); font-size: 16px; }
+.field .hint { font-family: var(--sp-font-body); font-size: 13px; color: var(--sp-text-muted); margin-top: -6px; }
+.field input, .field select, .field textarea {
+  font: 16px var(--sp-font-body);
+  padding: 12px 14px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: var(--sp-radius);
+  background: var(--sp-white);
+  color: var(--sp-text);
+}
+.field textarea { resize: vertical; }
+.field input:focus, .field select:focus, .field textarea:focus { border-color: var(--sp-navy); outline: 2px solid var(--sp-navy); outline-offset: -1px; }
+
+.consent { display: flex; gap: 12px; align-items: flex-start; font-size: 15px; color: rgba(0, 0, 0, 0.7); }
+.consent input { width: 20px; height: 20px; margin-top: 2px; accent-color: var(--sp-navy); flex-shrink: 0; }
+
+/* The spam trap is hidden from people but left in the page for bots. */
+.trap { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+
+.form-error {
+  margin: 0;
+  padding: 12px 16px;
+  border-radius: var(--sp-radius);
+  background: #fdecea;
+  color: #5f2120;
+  font-size: 15px;
+}

@@ -1,0 +1,25 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/Button.astro';
+import { MAP_URL } from '../consts';
+---
+
+<BaseLayout title="Page not found | SafePark" description="This page doesn’t exist." noindex>
+  <section class="page-hero">
+    <div class="container">
+      <span class="eyebrow">404</span>
+      <h1>We can’t find that page</h1>
+      <p class="lead">It may have moved. Try one of these instead.</p>
+      <div class="actions">
+        <Button href="/">Home</Button>
+        <Button href="/guides/" variant="outlined">Guides</Button>
+        <Button href={MAP_URL} variant="outlined">Log in to the map</Button>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .page-hero { padding-bottom: var(--sp-section); }
+  .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+</style>
