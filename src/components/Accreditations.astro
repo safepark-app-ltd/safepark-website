@@ -10,7 +10,7 @@ interface Props {
 const { height = 44 } = Astro.props;
 ---
 
-<ul class="logos" aria-label="Accreditation schemes">
+<ul class="logos" aria-label="Accreditations and partners">
   {
     accreditations.map((a) => {
       const h = Math.round(height * (a.scale ?? 1));

@@ -93,7 +93,6 @@ const guides = (await getCollection('guides', ({ data }) => !data.draft))
 
   <section class="accredited">
     <div class="container accredited-inner">
-      <span class="accredited-label">Search accredited parking</span>
       <Accreditations />
     </div>
   </section>
@@ -245,7 +244,6 @@ const guides = (await getCollection('guides', ({ data }) => !data.draft))
 
   .accredited { padding: 32px 0; border-bottom: 1px solid var(--sp-divider); }
   .accredited-inner { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 24px 44px; }
-  .accredited-label { font-family: var(--sp-font-display); font-size: 16px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--sp-text-muted); }
   .accredited :global(.logos) { justify-content: center; gap: 24px 44px; }
 
   .feature-icon {
