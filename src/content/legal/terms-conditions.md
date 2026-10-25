@@ -5,44 +5,42 @@ description: 'The terms and conditions for using SafePark.'
 
 ## General
 
-Use of the SafePark application, hereby called The App, is at the sole discretion of SafePark App Ltd, hereby called The Company. Use of the app, website and any content is subject to these Terms and Conditions, and fair use. SafePark is an intelligent parking app and as such all information available through the app is the property of The Company.
+Use of the SafePark web app ("The App") is at the sole discretion of SafePark App Ltd ("The Company"). Use of The App, this website and any content is subject to these Terms and Conditions and to fair use. All information available through The App is the property of The Company.
 
-Use of the app requires registration of a controlling user and the creation of a legal company record in SafePark’s systems. Submission of this data is required before access to the facilities of the app will be granted. Submission of such data is tacit acceptance of the terms laid out in this document.
+To use The App you must create an account. Creating an account is acceptance of these Terms and Conditions.
 
-## Parking providers
+## Your account
 
-Those parking providers registered with The Company will have access to the app for the purpose of booking parking for drivers represented by SafePark customers. Parking providers will only book parking for vehicle registrations that are present at the parking provider. Parking providers must not use alternative vehicle details in order to bypass the correct billing process to SafePark customers – the Hauliers.
+Your login is for your use only and must not be shared. You are responsible for keeping it secure.
 
-Parking Providers are responsible for the maintenance of the services available, and their prices, using The App. All prices must include any relevant VAT. All parking providers must be VAT registered unless a special exemption has been granted by The Company. When booking requests are made the prices at the time of booking are to be used, and may not be changed once a booking has been made.
+You can close your account at any time from the My Account area of The App.
 
-Parking Providers have the right to refuse entry to any vehicle whether parking has been booked or not. The Parking Provider agrees to inform The Company of this within 7 days.
+## Free trial and subscription
 
-Purchase Orders shall be raised at agreed intervals, containing a breakdown of parking and services that have been booked through The App. The Company must receive a corresponding invoice in order to settle any accounts, which will be on 30 day terms unless otherwise agreed in writing at the commencement of the agreement.
+New accounts include a 7-day free trial. We take your card details when you sign up, but you will not be charged during the trial. We will email you before your trial ends to remind you that your subscription is about to start. If you do not cancel before the trial ends, your subscription starts and you will be charged the price shown when you signed up, then again at the start of each billing period until you cancel.
 
-There is no minimum or contracted term to be part of the SafePark network. Membership can be cancelled at any time by contacting The Company. It can take up to 7 days to remove a parking location from SafePark, and any parking booked in this time shall still be subject to settlement by Purchase Order and invoice.
+Card payments are processed by Stripe. We do not see or store your full card details.
 
-## Hauliers
+Prices may change, and we may run promotions from time to time. We will tell you about any price change at least 7 days before the next payment it applies to.
 
-Hauliers are responsible for managing the vehicles who may use the SafePark system. It is the vehicle, not the driver, which is used for billing. It is prohibited from adding vehicle details for any vehicles where the Haulier is not authorised to pay for parking.
-
-Vehicles are identified by registration, and can only be associated with a single Haulier. Where a vehicle is shared between multiple Hauliers one must be responsible for that vehicle on SafePark’s systems.
-
-Parking requests, whether by the driver or the haulier, will result in an invoice within 7 days, which must be paid within 14 days, unless otherwise agreed by The Company.
-
-There is no minimum or contracted term to be part of the SafePark network. Membership can be cancelled at any time by contacting The Company. It can take up to 7 days to remove a haulier from SafePark, and any parking booked in this time shall still be subject to settlement by Invoice.
+You can cancel at any time from the My Account area. Cancelling stops future payments, and you keep access until the end of the period you have paid for. We do not refund part of a billing period.
 
 ## Use of the map
 
-The App includes the facility to browse parking services and crime locations in the UK and Europe. Use of this data is free to the drivers of registered Hauliers. In order to use the application a specific invitation link is sent to each driver.
+The App shows secure parking locations and reported crime across the UK and Europe. Parking information, including facilities, prices and accreditations, is provided as a guide. Arrangements and payment for parking are made directly with the site operator, and The Company is not party to them.
 
-The number of drivers is unlimited, and The Haulier is legally responsible for the actions of its drivers in regards to fair use of The App. Where we believe issues such as data theft, hacking or other undesirable actions have been taken against The App we reserve the right to block access to such users, and potentially the haulier.
+Crime data is drawn from police and other sources and is provided as a guide to risk. The Company does not guarantee that it is complete or current, and it does not replace your own judgement about where it is safe to stop.
 
-Note that the screen capture or other harvesting of crime or services data from The App is a breach of these Terms and Conditions, and will result in loss of service, and in some cases potential legal action.
+## Reporting incidents
+
+Incidents you report through The App must be accurate to the best of your knowledge. Every report is reviewed by The Company before it is published. Accepted reports are shown to other users anonymously, without your name or any details that identify you. The Company may edit or decline any report.
+
+## Fair use
+
+Screen capture, scraping or any other harvesting of crime or services data from The App is a breach of these Terms and Conditions and will result in loss of service and, in some cases, legal action. Where we believe data theft, hacking or other misuse has occurred, we reserve the right to block access.
 
 ## Data governance
 
-The Company will maintain the integrity of the data in the application, as well as the functionality of the application. Parking Service Providers and Hauliers have the right to be removed from the system, and need only contact The Company to do this.
+The Company maintains the integrity of the data and the functionality of The App. We hold the details you give us when you create an account, as described in our [privacy policy](/privacy-policy/).
 
-The Company stores no information on Drivers, and will not entertain such requests from Drivers.
-
-All of our systems are approved by Secure By Design, and conform to the highest data integrity standards. All company data and parking booking requests are held in Europe. Regular security reviews and data integrity checks are carried out on The App, and independent consultants are used to review the architecture and integrity of the solution.
+All of our systems are approved by Secure By Design, and conform to the highest data integrity standards. All account data is held in Europe. Regular security reviews and data integrity checks are carried out on The App, and independent consultants are used to review the architecture and integrity of the solution.
