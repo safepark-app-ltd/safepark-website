@@ -107,6 +107,11 @@ const tabs = [
   .legal :global(.defs dt) { flex: 0 0 150px; font-family: var(--sp-font-display); font-size: 17px; color: var(--sp-navy); }
   .legal :global(.defs dd) { flex: 1 1 300px; margin: 0; font-size: 16px; }
 
+  .legal :global(table) { width: 100%; border-collapse: collapse; margin: 0 0 16px; font-size: 16px; line-height: 1.5; }
+  .legal :global(th) { text-align: left; font-family: var(--sp-font-display); font-weight: 400; font-size: 17px; color: var(--sp-navy); }
+  .legal :global(th), .legal :global(td) { padding: 10px 16px 10px 0; vertical-align: top; border-bottom: 1px solid rgba(0, 0, 0, 0.1); overflow-wrap: anywhere; }
+  .legal :global(th:last-child), .legal :global(td:last-child) { padding-right: 0; }
+
   .legal :global(.cookie) { background: var(--sp-page); border-radius: var(--sp-radius-card); padding: 18px 22px; margin: 0 0 16px; }
   .legal :global(.cookie h3) { margin-top: 0; font-size: 19px; color: var(--sp-navy); }
   .legal :global(.cookie dl) { margin: 0; font-size: 16px; }
