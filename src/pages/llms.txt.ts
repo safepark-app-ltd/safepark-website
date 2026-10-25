@@ -14,7 +14,7 @@ export const GET: APIRoute = async ({ site }) => {
 
 > SafePark is a web app for truck and lorry drivers. It shows vetted, secure truck parking across the UK and Europe on one map, alongside reported cargo and fuel crime, so drivers can see whether a stop is safe before they pull in. Crime locations are updated twice a day.
 
-SafePark is part of ${COMPANY}, a UK company. The map is at ${MAP_URL} and needs a SafePark login. It runs in a phone's browser, with nothing to install.
+SafePark is run by ${COMPANY}, a UK company. The map is at ${MAP_URL} and needs a SafePark login. It runs in a phone's browser, with nothing to install.
 
 ## How to register
 
