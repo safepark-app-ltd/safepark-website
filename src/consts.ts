@@ -1,7 +1,7 @@
 // Contact details and links used across the site. Change them here, not in pages.
 
 export const SITE_NAME = 'SafePark';
-export const COMPANY = 'Fuel Theft Solutions Ltd';
+export const COMPANY = 'SafePark App Ltd';
 
 export const PHONE = '01782 909489';
 export const PHONE_HREF = 'tel:+441782909489';
