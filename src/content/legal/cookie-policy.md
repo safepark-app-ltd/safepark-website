@@ -6,59 +6,76 @@ updated: 2025-01-10
 
 ## About this policy
 
-This Cookie Policy explains what Cookies are and how We use them. You should read this policy so You can understand what type of cookies We use, or the information We collect using Cookies and how that information is used.
+This cookie policy explains what cookies are, which ones SafePark uses and why. It covers this website (safepark.app) and the SafePark map (map.safepark.app).
 
-Cookies do not typically contain any information that personally identifies a user, but personal information that we store about You may be linked to the information stored in and obtained from Cookies. For further information on how We use, store and keep your personal data secure, see our Privacy Policy.
+Cookies are small files that a website stores on your phone, computer or other device. Some websites also use your browser's local storage, which works in a similar way. This policy covers both.
 
-We do not store sensitive personal information, such as mailing addresses or account passwords, in the Cookies We use.
+Cookies do not usually contain anything that identifies you, but they may be linked to the details we hold about you. Our [privacy policy](/privacy-policy/) explains how we use and protect your personal data.
 
-## Interpretation and definitions
+We do not store sensitive personal information, such as addresses, passwords or card details, in cookies.
 
-Words with a capitalised first letter have the meanings defined below. The definitions have the same meaning whether they appear in the singular or the plural.
+## Who we are
 
-<dl class="defs">
-  <div><dt>Company</dt><dd>“the Company”, “We”, “Us” or “Our” in this Cookie Policy refers to SafePark App Ltd, 164 Northwood Lane, Newcastle, ST5 4BZ.</dd></div>
-  <div><dt>Cookies</dt><dd>Small files placed on Your computer, mobile device or any other device by a website, containing details of your browsing history on that website among its many uses.</dd></div>
-  <div><dt>Website</dt><dd>SafePark, accessible from safepark.app.</dd></div>
-  <div><dt>You</dt><dd>The individual accessing or using the Website, or a company or any legal entity on whose behalf that individual is accessing or using the Website, as applicable.</dd></div>
-</dl>
+“We”, “us” and “our” mean SafePark App Ltd, 164 Northwood Lane, Newcastle, ST5 4BZ.
 
 ## The cookies we use
 
-Cookies can be “persistent” or “session” Cookies. Persistent Cookies remain on your computer or mobile device when You go offline, while session Cookies are deleted as soon as You close your web browser. We use both for the purposes set out below:
+This website sets no cookies.
+
+The SafePark map uses only cookies and storage that are strictly necessary for it to work. We do not use analytics or advertising cookies, so we do not ask for your consent.
 
 <div class="cookie">
-  <h3>Necessary / essential cookies</h3>
+  <h3>Login</h3>
   <dl>
-    <div><dt>Type</dt><dd>Session</dd></div>
-    <div><dt>Administered by</dt><dd>Us</dd></div>
-    <div><dt>Purpose</dt><dd>These Cookies are essential to provide You with services available through the Website and to enable You to use some of its features. They help to authenticate users and prevent fraudulent use of user accounts. Without these Cookies, the services that You have asked for cannot be provided, and We only use these Cookies to provide You with those services.</dd></div>
+    <div><dt>Name</dt><dd>auth0.*.is.authenticated, and Auth0 session cookies</dd></div>
+    <div><dt>Set by</dt><dd>Auth0, our login provider, on our behalf</dd></div>
+    <div><dt>Purpose</dt><dd>Keeps you securely logged in to the map and helps prevent misuse of accounts.</dd></div>
+    <div><dt>Lasts</dt><dd>For as long as you stay logged in</dd></div>
   </dl>
 </div>
 
 <div class="cookie">
-  <h3>Functionality cookies</h3>
+  <h3>Payments</h3>
   <dl>
-    <div><dt>Type</dt><dd>Persistent</dd></div>
-    <div><dt>Administered by</dt><dd>Us</dd></div>
-    <div><dt>Purpose</dt><dd>These Cookies allow us to remember choices You make when You use the Website, such as remembering your login details or language preference. The purpose of these Cookies is to provide You with a more personal experience and to avoid You having to re-enter your preferences every time You use the Website.</dd></div>
+    <div><dt>Name</dt><dd>__stripe_mid, __stripe_sid</dd></div>
+    <div><dt>Set by</dt><dd>Stripe, our payment provider</dd></div>
+    <div><dt>Purpose</dt><dd>Helps prevent card fraud when you enter or update your payment details.</dd></div>
+    <div><dt>Lasts</dt><dd>1 year (__stripe_mid) and 30 minutes (__stripe_sid)</dd></div>
+  </dl>
+</div>
+
+<div class="cookie">
+  <h3>Your map settings</h3>
+  <dl>
+    <div><dt>Name</dt><dd>Local storage</dd></div>
+    <div><dt>Set by</dt><dd>Us</dd></div>
+    <div><dt>Purpose</dt><dd>Remembers your favourite locations, crime filters and display settings. Keeps a copy of map data so the map loads quickly, and holds incident reports until they have been sent.</dd></div>
+    <div><dt>Lasts</dt><dd>Until you clear it</dd></div>
+  </dl>
+</div>
+
+<div class="cookie">
+  <h3>The map itself</h3>
+  <dl>
+    <div><dt>Name</dt><dd>Local storage</dd></div>
+    <div><dt>Set by</dt><dd>Mapbox, our map provider</dd></div>
+    <div><dt>Purpose</dt><dd>Needed to load and display the map.</dd></div>
+    <div><dt>Lasts</dt><dd>Until you clear it</dd></div>
   </dl>
 </div>
 
 ## Your choices
 
-If You prefer to avoid the use of Cookies on the Website, first You must disable the use of Cookies in your browser and then delete the Cookies saved in your browser associated with this website. You may use this option for preventing the use of Cookies at any time.
+You can block or delete cookies and local storage in your browser settings at any time. If you do, you will not be able to log in to the map, and your saved settings will be lost.
 
-If You do not accept Our Cookies, You may experience some inconvenience in your use of the Website and some features may not function properly.
-
-If You’d like to delete Cookies or instruct your web browser to delete or refuse Cookies, please visit the help pages of your web browser:
+To find out how, visit the help pages for your browser:
 
 - Chrome: support.google.com/accounts/answer/32050
 - Microsoft Edge: support.microsoft.com (search “delete cookies in Microsoft Edge”)
 - Firefox: support.mozilla.org/kb/delete-cookies-remove-info-websites-stored
 - Safari: support.apple.com/guide/safari/manage-cookies-and-website-data-sfri11471/mac
-- For any other web browser, please visit your web browser’s official web pages.
+- For any other browser, visit its official website.
 
 ## Contact us
 
-If you have any questions about this Cookie Policy, you can contact us by email at support@safepark.app.
+If you have any questions about this cookie policy, email us at support@safepark.app.
