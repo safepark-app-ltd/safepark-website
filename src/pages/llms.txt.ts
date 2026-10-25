@@ -23,7 +23,7 @@ SafePark is part of ${COMPANY}, a UK company. The map is at ${MAP_URL} and needs
 
 ## What the map shows
 
-- Secure parking sites, with their facilities and accreditations (ParkMark, TAPA, ESPORG, Travis, Park Safe Network).
+- Secure parking sites, with their facilities and accreditations (ParkMark, TAPA, ESPORG, Travis).
 - Reported cargo theft, fuel theft, tank damage and hijacking, from police crime data.
 - Drivers can report an incident from the map.
 
