@@ -1,7 +1,7 @@
 ---
 title: 'Cookie policy'
 description: 'The cookies SafePark uses, what they do and how to control them.'
-updated: 2025-01-10
+updated: 2026-10-25
 ---
 
 ## About this policy

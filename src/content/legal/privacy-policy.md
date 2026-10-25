@@ -1,7 +1,7 @@
 ---
 title: 'Privacy policy'
 description: 'How SafePark collects, uses and protects your personal data, and your rights over it.'
-updated: 2025-01-10
+updated: 2026-10-25
 ---
 
 ## About this policy

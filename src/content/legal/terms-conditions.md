@@ -1,6 +1,7 @@
 ---
 title: 'Terms & conditions'
 description: 'The terms and conditions for using SafePark.'
+updated: 2026-10-25
 ---
 
 ## General
