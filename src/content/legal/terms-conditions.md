@@ -1,7 +1,7 @@
 ---
 title: 'Terms & conditions'
 description: 'The terms and conditions for using SafePark.'
-updated: 2026-10-25
+updated: 2026-11-03
 ---
 
 ## General
@@ -9,6 +9,14 @@ updated: 2026-10-25
 Use of the SafePark web app ("The App") is at the sole discretion of SafePark App Ltd ("The Company"). Use of The App, this website and any content is subject to these Terms and Conditions and to fair use. All information available through The App is the property of The Company.
 
 To use The App you must create an account. Creating an account is acceptance of these Terms and Conditions.
+
+## Who can subscribe
+
+SafePark subscriptions are available in the United Kingdom only. To subscribe you must be 18 or over, with a billing address in the UK and a payment card issued in the UK.
+
+If an account does not meet these conditions, we may cancel the subscription and close the account. If this happens during the free trial, you will not be charged.
+
+You can use The App anywhere it has map coverage, including while driving in Europe.
 
 ## Your account
 
