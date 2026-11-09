@@ -93,12 +93,13 @@ SafePark has its own illustrated icon set; use it instead of generic icon fonts 
 
 - **Map pins** (`pin-*.png`): teardrop markers — SafePark (lock-lorry), secure, truck stop, fuel (red/green/blue), food, crime (red = recent, grey = older).
 - **Crime pictograms** (`crime/*.png`): navy-and-sky flat illustrations — fuel theft, tank damage, cargo theft, hijack, theft, clandestine, etc.
-- **Facilities and brands** (`info-*.png`): CCTV, showers, accreditation logos (ParkMark, TAPA, ESPORG, Travis, Park Safe Network), fuel and food brands.
+- **Facilities and brands** (`info-*.png`): CCTV, showers, accreditation logos (ParkMark, TAPA, ESPORG, Travis; Park Safe Network is hidden for now), NaVCIS and Secured by Design, fuel and food brands.
 - Generic UI glyphs (chevrons, heart, search) are Material Icons, as in the app.
 
 ## Logo
 
-- `SafeParkLogo4-with-TM.png` — full lockup: padlock-and-lorry mark, SAFE in sky, PARK in navy, "Fuel Theft Solutions Ltd™" bar. Use on white only; give it a white plate on dark backgrounds.
+- `SafeParkLogo-Intelligent-Parking.png` — full lockup: padlock-and-lorry mark, SAFE in sky, PARK in navy, "Intelligent Parking" bar. White background, so use on white only; give it a white plate on dark backgrounds.
+- `SafeParkLogo4-with-TM.png` and `-without-TM.png` — the old lockup with the "Fuel Theft Solutions Ltd™" bar. Don't use; SafePark is SafePark App Ltd.
 - `lock-lorry-symbol.png` — the mark alone, for favicons, app icons and small spaces.
 - Logo and styles by Tom Shooter.
 
