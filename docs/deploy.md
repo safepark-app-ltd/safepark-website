@@ -2,10 +2,19 @@
 
 ## How it works
 
-- Every pull request to `main` runs **CI** (`.github/workflows/ci.yml`): install, audit, type-check, build, internal link check. The `ci` check is required to merge.
-- Merging to `main` runs **Deploy** (`deploy.yml`): it builds the site, publishes it to GitHub Pages and creates a GitHub Release tagged `vYYYY.MM.DD-<run>`.
+Two branches, like the platform repos:
+
+| Branch | Deploys to | Workflow |
+|---|---|---|
+| `main` | **dev.safepark.app** (S3 and CloudFront, made by safepark-infra `website/dev`) | `deploy-dev.yml` |
+| `release` | **safepark.app** (GitHub Pages) | `deploy.yml` |
+
+- Every pull request to `main` or `release` runs **CI** (`.github/workflows/ci.yml`): install, audit, type-check, build, internal link check. The `ci` check is required to merge.
+- Merging to `main` runs **Deploy dev**: a noindex build that sends its forms to the dev backend (`devapiv2`) and links to devmap, uploaded to the `safepark-dev-website` bucket. Check changes there, and show them before they go live.
+- To go live, open a pull request from `main` to `release` and merge it. That runs **Deploy**: it builds the site, publishes it to GitHub Pages and creates a GitHub Release tagged `vYYYY.MM.DD-<run>`.
+- Repository variables for the dev deploy: `AWS_DEV_DEPLOY_ROLE_ARN` (the `safepark-github-website-dev` role) and `DEV_DISTRIBUTION_ID` (the `website/dev` output).
 - To redeploy without a change, run Deploy by hand from the Actions tab.
-- To roll back, revert the bad PR and merge the revert.
+- To roll back, revert the bad PR on `main` and release again.
 
 The marketing site deploys on its own. It is not part of the platform's coordinated release in safepark-platform (ADR-0008): it shares no code, data or login with the apps, so its releases don't need to line up with app versions.
 

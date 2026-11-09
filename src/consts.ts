@@ -7,7 +7,8 @@ export const PHONE = '01782 909489';
 export const PHONE_HREF = 'tel:+441782909489';
 export const EMAIL = 'info@safepark.app';
 
-export const MAP_URL = 'https://map.safepark.app';
+// The dev site (dev.safepark.app) links to devmap instead; see deploy-dev.yml.
+export const MAP_URL = import.meta.env.PUBLIC_MAP_URL || 'https://map.safepark.app';
 
 // park-backend-2 receives the Get access and Contact forms and emails them to EMAIL.
 // `||`, not `??`: the deploy workflow passes an unset repo variable as "".

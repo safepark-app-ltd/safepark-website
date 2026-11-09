@@ -1,7 +1,8 @@
 name: Deploy
 
-# Merging a pull request into main builds the site, publishes it to GitHub
-# Pages and records a GitHub Release. The marketing site deploys on its own,
+# Pushing to release (by merging a pull request from main) builds the site,
+# publishes it to GitHub Pages at safepark.app and records a GitHub Release.
+# main deploys to dev.safepark.app instead (deploy-dev.yml). The marketing site deploys on its own,
 # outside the platform's coordinated release (see docs/deploy.md).
 #
 # Repository variables (Settings → Secrets and variables → Actions → Variables):
@@ -11,7 +12,7 @@ name: Deploy
 
 on:
   push:
-    branches: [main]
+    branches: [release]
   workflow_dispatch:
 
 env:
