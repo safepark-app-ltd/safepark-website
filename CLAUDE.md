@@ -4,7 +4,7 @@ Guidance for Claude (locally and in the `@claude` GitHub Action) when working in
 
 ## What this is
 
-The public marketing site at **safepark.app**. It explains SafePark to truck drivers and sends them to the map app at **map.safepark.app**, which is a separate repo. Static Astro 7 site, hosted on GitHub Pages.
+The public marketing site at **safepark.app**. It explains SafePark to truck drivers and sends them to the map app at **map.safepark.app**, which is a separate repo. Static Astro 7 site. `main` deploys to **dev.safepark.app** (S3/CloudFront) for checking; `release` deploys to safepark.app on GitHub Pages.
 
 The site is for **drivers**. SafePark no longer sells to hauliers, so don't add haulier or fleet wording to new copy. Some older guides still use it; leave that alone unless the issue asks.
 
@@ -85,6 +85,6 @@ When tagged with **"@claude implement"**, build it on a branch, push, and open a
 - One issue, one PR. If an issue is too big for one PR, say so in a plan and propose a split.
 - The PR description says `Closes #<n>` and explains the change in plain English.
 - Push as soon as `check`, `build` and `linkcheck` pass. Don't wait on anything else.
-- Never push to `main`. Merging to main deploys to the live site.
+- Never push to `main` or `release`. Merging to main deploys to dev.safepark.app; merging main into release deploys the live site.
 - Don't change `.github/workflows/`, `astro.config.mjs` `site`/`redirects`, or `src/consts.ts` contact details unless the issue asks. Flag it in the PR if you had to.
 - Update this file when the structure or conventions change.
