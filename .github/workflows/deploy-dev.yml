@@ -31,9 +31,8 @@ jobs:
     permissions:
       contents: read
       id-token: write
-    environment:
-      name: dev
-      url: https://dev.safepark.app
+    # No GitHub environment here: with one, the OIDC subject becomes
+    # "environment:dev", and the AWS role trusts only "ref:refs/heads/main".
     env:
       SITE_URL: https://dev.safepark.app
       PUBLIC_ENQUIRY_URL: https://devapiv2.safepark.app/enquiry
