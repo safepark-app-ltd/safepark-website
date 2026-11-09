@@ -78,4 +78,4 @@ To find out how, visit the help pages for your browser:
 
 ## Contact us
 
-If you have any questions about this cookie policy, email us at support@safepark.app.
+If you have any questions about this cookie policy, email us at info@safepark.app.

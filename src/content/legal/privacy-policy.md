@@ -12,7 +12,7 @@ This privacy policy explains what personal data SafePark collects, why we collec
 
 SafePark is run by SafePark App Ltd, 164 Northwood Lane, Newcastle, ST5 4BZ. We are the controller of your personal data, and we are registered with the Information Commissioner’s Office (ICO) under number ZB920897.
 
-“We”, “us” and “our” mean SafePark App Ltd. If you have any questions about this policy or your data, email us at support@safepark.app.
+“We”, “us” and “our” mean SafePark App Ltd. If you have any questions about this policy or your data, email us at info@safepark.app.
 
 ## What we collect
 
@@ -85,7 +85,7 @@ You have the right to:
 - ask us to send your data to you, or to another organisation, in a common format
 - withdraw your consent at any time, where we rely on it
 
-You can update your details and close your account from the My Account area of the map. For anything else, email support@safepark.app. We will reply within one month.
+You can update your details and close your account from the My Account area of the map. For anything else, email info@safepark.app. We will reply within one month.
 
 If you are unhappy with how we have handled your data, you can complain to the ICO at ico.org.uk or on 0303 123 1113. We would appreciate the chance to put things right first, so please contact us before you do.
 
