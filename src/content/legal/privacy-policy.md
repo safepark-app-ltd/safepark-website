@@ -1,7 +1,7 @@
 ---
 title: 'Privacy policy'
 description: 'How SafePark collects, uses and protects your personal data, and your rights over it.'
-updated: 2026-10-25
+updated: 2026-11-10
 ---
 
 ## About this policy
@@ -20,8 +20,16 @@ SafePark is run by SafePark App Ltd, 164 Northwood Lane, Newcastle, ST5 4BZ. We 
 
 - **When you sign up or request access:** your name, email address and phone number, where you drive, and, if you choose to tell us, how you heard about us, your company and anything else you want us to know.
 - **When you contact us:** your name, email address and your message.
+- **If you are a haulier:** your company name, your name and email address, and the number of licences you have. When you add a card, Stripe also collects your billing address and, if you give it, your VAT number.
 - **When you subscribe:** your card details, which go straight to our payment provider, Stripe. We do not see or store your full card number. We keep a record of your subscription and payments.
+- **When you join through a haulier:** which haulier you joined, when you joined, and whether your access is active, suspended, waiting for approval or ended.
 - **When you report an incident:** the type of incident, its location and time, and any description you add.
+
+### What a haulier can see about its drivers
+
+If you join a haulier's account with their link or code, the haulier can see your name, your email address, when you joined, and whether your access is active, suspended, waiting for their approval, or ended. They can see this for every driver who has joined with their code, including drivers they have removed or who have disconnected, so they can manage their licences. We tell you this before you join.
+
+A haulier cannot see your location, where you have looked on the map, or the incidents you report.
 
 ### Details collected when you use the map
 
@@ -37,6 +45,7 @@ We do not use analytics or advertising tracking.
 |---|---|
 | Creating and running your account, and giving you access to the map | Contract |
 | Taking payments and managing your subscription, including trial reminders and notice of price changes | Contract |
+| Managing a haulier's licences, and showing a haulier the drivers on its account | For the haulier: contract. For drivers: legitimate interests, because the haulier pays for and manages your access |
 | Reviewing and publishing incident reports, without your name or any details that identify you | Legitimate interests: keeping the map accurate and useful for all drivers |
 | Showing your position on the map | Consent, given through your browser’s location permission |
 | Keeping the service secure, and preventing fraud and misuse | Legitimate interests |
@@ -71,6 +80,7 @@ Some of our processors hold data outside the UK. Where they do, the transfer is 
 - **Your account:** for as long as you have one. We delete your account data within 30 days of you closing your account.
 - **Payment records:** 6 years, as required by tax law.
 - **Access requests that do not become accounts:** 12 months.
+- **Your link to a haulier:** for as long as the haulier's account exists, so the haulier can see who has used its licences. It is removed when you close your account.
 - **Incident reports:** kept, because they form part of the crime picture on the map. When you close your account, the link between you and your reports is removed.
 - **Technical data:** for a short time only, unless we need it to investigate a security problem.
 
