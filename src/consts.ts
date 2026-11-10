@@ -13,8 +13,17 @@ export const EMAIL = 'info@safepark.app';
 
 // The dev site (dev.safepark.app) links to devmap instead; see deploy-dev.yml.
 export const MAP_URL = import.meta.env.PUBLIC_MAP_URL || 'https://map.safepark.app';
+// Self-serve sign-up in the map app: hauliers start a free trial; drivers
+// join with their haulier's code.
+export const HAULIER_SIGNUP_URL = `${MAP_URL}/signup`;
+export const JOIN_URL = `${MAP_URL}/join`;
 
-// park-backend-2 receives the Get access and Contact forms and emails them to EMAIL.
+// Hauliers buy one licence per driver: £3 a month including VAT. Hauliers are
+// businesses, so the site shows the price before VAT, as the map app does.
+export const LICENCE_PRICE = '£2.50 + VAT';
+export const TRIAL_DAYS = 7;
+
+// park-backend-2 receives the Get started and Contact forms and emails them to EMAIL.
 // `||`, not `??`: the deploy workflow passes an unset repo variable as "".
 export const ENQUIRY_URL =
   import.meta.env.PUBLIC_ENQUIRY_URL || 'https://prodapiv2.safepark.app/enquiry';

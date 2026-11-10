@@ -1,110 +1,133 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Accreditations from '../components/Accreditations.astro';
+import Button from '../components/Button.astro';
 import FormError from '../components/FormError.astro';
-import { EMAIL, ENQUIRY_URL, MAP_URL, PHONE, PHONE_HREF } from '../consts';
+import {
+  EMAIL,
+  ENQUIRY_URL,
+  HAULIER_SIGNUP_URL,
+  JOIN_URL,
+  LICENCE_PRICE,
+  MAP_URL,
+  PHONE,
+  PHONE_HREF,
+  TRIAL_DAYS,
+} from '../consts';
 
 const regions = ['UK only', 'UK and Europe', 'Mostly Europe'];
 
-const steps = [
-  { title: 'We check your details', body: 'Usually within one working day.' },
-  { title: 'We set up your account', body: 'We email you a login for map.safepark.app.' },
-  { title: 'Open the map', body: 'In your phone’s browser, with nothing to install.' },
+const haulierSteps = [
+  `Choose how many drivers and add a card. Nothing is charged for ${TRIAL_DAYS} days.`,
+  'Get a link and a code to send your drivers.',
+  `Then ${LICENCE_PRICE} per driver a month. Change the number or cancel at any time.`,
+];
+
+const driverSteps = [
+  'Open the link from your haulier, or enter their 8-character code.',
+  'Register with your name and email, or with Google.',
+  'You’re on the map. It’s free for you.',
 ];
 ---
 
 <BaseLayout
-  title="Get access to SafePark | Secure parking map for drivers"
-  description="Request your SafePark login. Requests are answered within one working day."
+  title="Get started with SafePark | Secure parking map for drivers"
+  description={`Hauliers start a ${TRIAL_DAYS}-day free trial for their drivers. Drivers join with their haulier’s code and open the map in their phone’s browser.`}
   current="sign-up"
 >
   <section class="page-hero page-hero--navy hero">
     <div class="container">
-      <span class="eyebrow">Get access</span>
+      <span class="eyebrow">Get started</span>
       <h1>Start using SafePark</h1>
-      <p class="lead">Tell us a little about yourself and we’ll set up your login for the map. Most requests are answered within one working day.</p>
+      <p class="lead">Hauliers set up SafePark for their drivers. Drivers join with the code their haulier sends them.</p>
     </div>
   </section>
 
   <section class="body">
-    <div class="container cols">
-      <div class="panel">
-        <form class="form" action={ENQUIRY_URL} method="post" data-enquiry="access">
-          <div class="form-grid">
-            <label class="field">Your name <input type="text" name="name" autocomplete="name" required maxlength="120" /></label>
-            <label class="field">Email <input type="email" name="email" autocomplete="email" required maxlength="200" /></label>
-            <label class="field">Phone <input type="tel" name="phone" autocomplete="tel" required maxlength="40" /></label>
-            <label class="field"
-              >Where do you drive?
-              <select name="region" required>
-                {regions.map((r) => <option>{r}</option>)}
-              </select>
-            </label>
-            <label class="field"
-              >How did you hear about us? <span class="hint">Optional</span>
-              <input type="text" name="source" maxlength="200" />
-            </label>
-            <label class="field"
-              >Company <span class="hint">Optional</span>
-              <input type="text" name="company" autocomplete="organization" maxlength="200" />
-            </label>
-          </div>
-
-          <label class="field"
-            >Anything else we should know? <span class="hint">Optional</span>
-            <textarea name="message" rows="4" maxlength="4000"></textarea>
-          </label>
-
-          <label class="trap" aria-hidden="true">Leave this empty <input type="text" name="website" tabindex="-1" autocomplete="off" /></label>
-
-          <label class="consent">
-            <input type="checkbox" name="consent" required />
-            <span>I agree to SafePark contacting me about my request. See our <a href="/privacy-policy/">privacy policy</a>.</span>
-          </label>
-
-          <FormError />
-
-          <div class="submit-row">
-            <button type="submit" class="submit">Request access</button>
-            <span class="muted small">Already have an account? <a href={MAP_URL}>Log in to the map</a></span>
-          </div>
-        </form>
-
-        <div class="sent" data-sent hidden>
-          <div class="tick">
-            <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#1a2b80" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg>
-          </div>
-          <h2 tabindex="-1">Thanks, we’ve got your request</h2>
-          <p>We’ll email your login for the map within one working day. If it’s urgent, call us on {PHONE}.</p>
-          <button type="button" class="again" data-again>Back to the form</button>
+    <div class="container">
+      <div class="choices">
+        <div class="choice">
+          <span class="eyebrow">For hauliers</span>
+          <h2>Start a free trial for your drivers</h2>
+          <ol class="ticks">{haulierSteps.map((s) => <li>{s}</li>)}</ol>
+          <Button href={HAULIER_SIGNUP_URL} size="lg" block>Start free trial</Button>
+          <p class="muted small">Your own login is free.</p>
+        </div>
+        <div class="choice">
+          <span class="eyebrow">For drivers</span>
+          <h2>Got a code from your haulier?</h2>
+          <ol class="ticks">{driverSteps.map((s) => <li>{s}</li>)}</ol>
+          <Button href={JOIN_URL} size="lg" block>Join with a code</Button>
+          <p class="muted small">Already registered? <a href={MAP_URL}>Log in to the map</a></p>
         </div>
       </div>
 
-      <aside>
-        <div>
-          <h2 class="next-title">What happens next</h2>
-          <ol class="next">
-            {
-              steps.map((s, i) => (
-                <li>
-                  <span class="step-num">{i + 1}</span>
-                  <div>
-                    <strong>{s.title}</strong>
-                    <br />
-                    <span class="muted">{s.body}</span>
-                  </div>
-                </li>
-              ))
-            }
-          </ol>
+      <div class="cols">
+        <div class="panel" id="no-code">
+          <h2 class="form-title">No haulier code?</h2>
+          <p class="muted form-intro">
+            If your company doesn’t use SafePark yet, or you drive for yourself, tell us a little about you and we’ll be in touch within one working day.
+          </p>
+          <form class="form" action={ENQUIRY_URL} method="post" data-enquiry="access">
+            <div class="form-grid">
+              <label class="field">Your name <input type="text" name="name" autocomplete="name" required maxlength="120" /></label>
+              <label class="field">Email <input type="email" name="email" autocomplete="email" required maxlength="200" /></label>
+              <label class="field">Phone <input type="tel" name="phone" autocomplete="tel" required maxlength="40" /></label>
+              <label class="field"
+                >Where do you drive?
+                <select name="region" required>
+                  {regions.map((r) => <option>{r}</option>)}
+                </select>
+              </label>
+              <label class="field"
+                >How did you hear about us? <span class="hint">Optional</span>
+                <input type="text" name="source" maxlength="200" />
+              </label>
+              <label class="field"
+                >Company <span class="hint">Optional</span>
+                <input type="text" name="company" autocomplete="organization" maxlength="200" />
+              </label>
+            </div>
+
+            <label class="field"
+              >Anything else we should know? <span class="hint">Optional</span>
+              <textarea name="message" rows="4" maxlength="4000"></textarea>
+            </label>
+
+            <label class="trap" aria-hidden="true">Leave this empty <input type="text" name="website" tabindex="-1" autocomplete="off" /></label>
+
+            <label class="consent">
+              <input type="checkbox" name="consent" required />
+              <span>I agree to SafePark contacting me about my request. See our <a href="/privacy-policy/">privacy policy</a>.</span>
+            </label>
+
+            <FormError />
+
+            <div class="submit-row">
+              <button type="submit" class="submit">Send</button>
+            </div>
+          </form>
+
+          <div class="sent" data-sent hidden>
+            <div class="tick">
+              <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#1a2b80" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg>
+            </div>
+            <h2 tabindex="-1">Thanks, we’ve got your message</h2>
+            <p>We’ll be in touch within one working day. If it’s urgent, call us on {PHONE}.</p>
+            <button type="button" class="again" data-again>Back to the form</button>
+          </div>
         </div>
-        <div class="talk">
-          <h2>Prefer to talk?</h2>
-          <p class="talk-phone"><a href={PHONE_HREF}>{PHONE}</a></p>
-          <p><a href={`mailto:${EMAIL}`}>{EMAIL}</a></p>
-        </div>
-        <Accreditations height={34} />
-      </aside>
+
+        <aside>
+          <div class="talk">
+            <h2>Prefer to talk?</h2>
+            <p>We can help hauliers and drivers get set up.</p>
+            <p class="talk-phone"><a href={PHONE_HREF}>{PHONE}</a></p>
+            <p><a href={`mailto:${EMAIL}`}>{EMAIL}</a></p>
+          </div>
+          <Accreditations height={34} />
+        </aside>
+      </div>
     </div>
   </section>
 </BaseLayout>
@@ -116,16 +139,40 @@ const steps = [
 <style>
   .hero { padding-bottom: 140px; }
   .body { padding: 0 0 var(--sp-section); }
-  .cols { margin-top: -96px; display: flex; flex-wrap: wrap; gap: 32px; align-items: flex-start; }
+
+  .choices {
+    margin-top: -96px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(340px, 100%), 1fr));
+    gap: 24px;
+  }
+  .choice {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    background: var(--sp-white);
+    border-radius: var(--sp-radius-card);
+    box-shadow: var(--sp-shadow-dialog);
+    padding: 36px 32px;
+  }
+  .choice h2 { font-size: 30px; margin: 0; }
+  .choice .eyebrow { margin: 0; }
+  .choice p { margin: 0; }
+  .ticks { margin: 0 0 8px; padding-left: 22px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+  .ticks li::marker { color: var(--sp-navy); font-family: var(--sp-font-display); }
+
+  .cols { margin-top: 56px; display: flex; flex-wrap: wrap; gap: 32px; align-items: flex-start; }
 
   .panel {
     flex: 999 1 560px;
     min-width: 0;
     background: var(--sp-white);
     border-radius: var(--sp-radius-card);
-    box-shadow: var(--sp-shadow-dialog);
+    box-shadow: var(--sp-shadow-card);
     padding: 40px;
   }
+  .form-title { font-size: 30px; margin: 0 0 6px; }
+  .form-intro { margin: 0 0 24px; }
 
   .submit-row { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 24px; }
   .submit, .again {
@@ -149,28 +196,21 @@ const steps = [
   .tick { width: 72px; height: 72px; border-radius: 50%; background: var(--sp-sky-light); display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; }
   .sent h2 { font-size: 34px; margin: 0 0 10px; }
   .sent h2:focus { outline: none; }
-  .sent p { margin: 0 auto 28px; max-width: 46ch; color: rgba(0, 0, 0, 0.65); }
-  .again { min-height: 44px; padding: 0 22px; font-size: 17px; background: transparent; color: var(--sp-navy); border: 1px solid rgba(26, 43, 128, 0.5); box-shadow: none; }
+  .sent p { margin: 0 auto 28px; max-width: 46ch; color: var(--sp-text-muted); }
+  .again { min-height: 44px; padding: 0 22px; font-size: 17px; background: transparent; color: var(--sp-navy); border: 1px solid var(--sp-navy); box-shadow: none; }
 
-  aside { flex: 1 1 320px; display: flex; flex-direction: column; gap: 24px; padding-top: 128px; }
-  .next-title { font-size: 26px; margin: 0 0 18px; }
-  .next { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 18px; }
-  .next li { display: flex; gap: 14px; }
-  .next .step-num { width: 36px; height: 36px; font-size: 19px; }
-  .next strong { font-weight: 500; }
+  aside { flex: 1 1 320px; display: flex; flex-direction: column; gap: 24px; }
   .talk { background: var(--sp-page); border-radius: var(--sp-radius-card); padding: 24px; }
   .talk h2 { font-size: 22px; margin: 0 0 6px; }
-  .talk p { margin: 0; }
+  .talk p { margin: 0 0 8px; }
   .talk-phone { font-family: var(--sp-font-display); font-size: 24px; margin-bottom: 4px !important; }
   .talk-phone a { text-decoration: none; }
 
-  @media (max-width: 900px) {
-    aside { padding-top: 0; }
-  }
-
   @media (max-width: 600px) {
     .hero { padding-bottom: 96px; }
-    .cols { margin-top: -64px; }
+    .choices { margin-top: -64px; }
+    .choice { padding: 28px 20px; }
+    .choice h2 { font-size: 26px; }
     .panel { padding: 24px 20px; }
     .submit { width: 100%; }
   }

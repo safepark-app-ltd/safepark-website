@@ -1,6 +1,6 @@
 import type { APIRoute } from 'astro';
 import { getCollection } from 'astro:content';
-import { COMPANY, EMAIL, MAP_URL, PHONE } from '../consts';
+import { COMPANY, EMAIL, HAULIER_SIGNUP_URL, JOIN_URL, LICENCE_PRICE, MAP_URL, PHONE, TRIAL_DAYS } from '../consts';
 
 // Plain-English summary for AI tools (https://llmstxt.org).
 
@@ -18,8 +18,9 @@ SafePark is run by ${COMPANY}, a UK company. The map is at ${MAP_URL} and needs 
 
 ## How to register
 
-- Drivers request access with the form at ${url('/sign-up/')}, or by phone on ${PHONE}.
-- The SafePark team checks the details and emails a login, usually within one working day.
+- Hauliers sign up at ${HAULIER_SIGNUP_URL}: a ${TRIAL_DAYS}-day free trial (card taken up front), then ${LICENCE_PRICE} per driver a month. They get a link and a code for their drivers.
+- Drivers join free with their haulier's link or code at ${JOIN_URL}, registering with a name and email address or Google.
+- Drivers without a haulier code can get in touch with the form at ${url('/sign-up/')}, or by phone on ${PHONE}.
 
 ## What the map shows
 
@@ -30,7 +31,7 @@ SafePark is run by ${COMPANY}, a UK company. The map is at ${MAP_URL} and needs 
 ## Pages
 
 - [Home](${url('/')}): what SafePark does and how to register
-- [Get access](${url('/sign-up/')}): request a SafePark login
+- [Get started](${url('/sign-up/')}): hauliers start a free trial; drivers join with a code
 - [Guides](${url('/guides/')}): advice on secure parking and cargo crime
 - [Driver welfare](${url('/driver-welfare/')}): support services for drivers
 - [Contact](${url('/contact/')}): ${PHONE}, ${EMAIL}
