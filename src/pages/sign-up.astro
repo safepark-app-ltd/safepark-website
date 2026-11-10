@@ -18,7 +18,7 @@ import {
 const regions = ['UK only', 'UK and Europe', 'Mostly Europe'];
 
 const haulierSteps = [
-  `Choose how many drivers and add a card. Nothing is charged for ${TRIAL_DAYS} days.`,
+  `Choose how many drivers. Nothing is charged for ${TRIAL_DAYS} days.`,
   'Get a link and a code to send your drivers.',
   `Then ${LICENCE_PRICE} per driver a month. Change the number or cancel at any time.`,
 ];
@@ -51,7 +51,7 @@ const driverSteps = [
           <h2>Start a free trial for your drivers</h2>
           <ol class="ticks">{haulierSteps.map((s) => <li>{s}</li>)}</ol>
           <Button href={HAULIER_SIGNUP_URL} size="lg" block>Start free trial</Button>
-          <p class="muted small">Your own login is free.</p>
+          <p class="muted small">Already registered? <a href={MAP_URL}>Log in to the map</a></p>
         </div>
         <div class="choice">
           <span class="eyebrow">For drivers</span>
