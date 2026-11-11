@@ -1,7 +1,7 @@
 ---
 title: 'Privacy policy'
 description: 'How SafePark collects, uses and protects your personal data, and your rights over it.'
-updated: 2026-11-10
+updated: 2026-11-11
 ---
 
 ## About this policy
@@ -77,11 +77,11 @@ Some of our processors hold data outside the UK. Where they do, the transfer is 
 
 ## How long we keep your data
 
-- **Your account:** for as long as you have one. We delete your account data within 30 days of you closing your account.
+- **Your account:** for as long as you have one. To close your account, email info@safepark.app. We delete your account data within 30 days of your request.
 - **Payment records:** 6 years, as required by tax law.
 - **Access requests that do not become accounts:** 12 months.
-- **Your link to a haulier:** for as long as the haulier's account exists, so the haulier can see who has used its licences. It is removed when you close your account.
-- **Incident reports:** kept, because they form part of the crime picture on the map. When you close your account, the link between you and your reports is removed.
+- **Your link to a haulier:** for as long as the haulier's account exists, so the haulier can see who has used its licences. It is removed when your account is closed.
+- **Incident reports:** kept, because they form part of the crime picture on the map. When your account is closed, the link between you and your reports is removed.
 - **Technical data:** for a short time only, unless we need it to investigate a security problem.
 
 ## Your rights
@@ -95,7 +95,7 @@ You have the right to:
 - ask us to send your data to you, or to another organisation, in a common format
 - withdraw your consent at any time, where we rely on it
 
-You can update your details and close your account from the My Account area of the map. For anything else, email info@safepark.app. We will reply within one month.
+To use any of these rights, including closing your account, email info@safepark.app from the email address you log in with. We will reply within one month.
 
 If you are unhappy with how we have handled your data, you can complain to the ICO at ico.org.uk or on 0303 123 1113. We would appreciate the chance to put things right first, so please contact us before you do.
 
