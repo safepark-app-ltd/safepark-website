@@ -1,7 +1,7 @@
 ---
 title: 'Terms & conditions'
 description: 'The terms and conditions for using SafePark.'
-updated: 2026-11-10
+updated: 2026-11-11
 ---
 
 ## General
@@ -22,7 +22,7 @@ You can use The App anywhere it has map coverage, including while driving in Eur
 
 Your login is for your use only and must not be shared. You are responsible for keeping it secure.
 
-You can close your account at any time from the My Account area of The App.
+You can close your account at any time by emailing info@safepark.app from the email address you log in with. If you have a subscription, cancel it first. We close the account and delete your data as described in our [privacy policy](/privacy-policy/).
 
 ## Free trial and subscription
 
@@ -34,7 +34,7 @@ Card payments are processed by Stripe. We do not see or store your full card det
 
 Prices may change, and we may run promotions from time to time. We will tell you about any price change at least 7 days before the next payment it applies to.
 
-You can cancel at any time from the My Account area. Cancelling stops future payments, and you keep access until the end of the period you have paid for. We do not refund part of a billing period.
+You can cancel at any time from Manage billing in The App. Cancelling stops future payments, and you keep access until the end of the period you have paid for. We do not refund part of a billing period.
 
 ## Haulier accounts
 
