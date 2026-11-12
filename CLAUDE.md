@@ -6,7 +6,7 @@ Guidance for Claude (locally and in the `@claude` GitHub Action) when working in
 
 The public marketing site at **safepark.app**. It explains SafePark to truck drivers and sends them to the map app at **map.safepark.app**, which is a separate repo. Static Astro 7 site. `main` deploys to **dev.safepark.app** (S3/CloudFront) for checking; `release` deploys to safepark.app on GitHub Pages.
 
-The site is for **drivers**. SafePark no longer sells to hauliers, so don't add haulier or fleet wording to new copy. Some older guides still use it; leave that alone unless the issue asks.
+The site talks to **drivers**, and has one route in for **hauliers**: they buy a licence per driver and send their drivers a code (platform ADR 0012). Keep haulier wording to the sign-up calls to action and the Get started page; the rest of the copy stays driver-first. Some older guides use haulier or fleet wording; leave that alone unless the issue asks.
 
 ## Commands
 
@@ -32,7 +32,7 @@ Before pushing: `npm run check && npm run build && npm run linkcheck`. That's al
 | `src/content/guides/*.md` | Guides. The file name is the URL: `foo.md` → `/foo/` |
 | `src/content/legal/*.md` | Privacy, cookie and terms pages |
 | `src/data/` | Welfare organisations, accreditation logos, guide icons |
-| `src/scripts/enquiry.ts` | Sends the Get access and Contact forms to park-backend-2 |
+| `src/scripts/enquiry.ts` | Sends the Get started ("No haulier code?") and Contact forms to park-backend-2 |
 | `src/pages/robots.txt.ts`, `llms.txt.ts` | Generated per build. Preview builds block all crawlers |
 | `docs/STYLE.md` | Colours, type, voice. **Read it before changing copy or styles** |
 | `docs/deploy.md` | Hosting, DNS, go-live steps |
@@ -46,7 +46,9 @@ Before pushing: `npm run check && npm run build && npm run linkcheck`. That's al
 - **Mobile first.** Check at 390px wide. No horizontal scrolling. Tap targets at least 44px.
 - **No cookies, analytics or third-party scripts** without an issue that says so. The site needs no cookie banner and should keep it that way. Fonts are self-hosted through Fontsource.
 - **Images** go in `src/assets/` and are rendered with `<Image>` from `astro:assets`, so they're resized and converted to WebP. Only `public/` files that need a fixed URL (og.png) live in `public/`.
-- **No prices or free trial** on the site yet. Access is by request (phase 1). The trial and Stripe come later.
+- **Sign-up is self-serve, in the map app.** Hauliers start at `HAULIER_SIGNUP_URL` (a 7-day free trial, card first); drivers join with a code at `JOIN_URL`. `/sign-up/` is the Get started page that links to both, and keeps a form for drivers without a code.
+- **Prices and the trial** come from `src/consts.ts` (`LICENCE_PRICE`, `TRIAL_DAYS`): £2.50 + VAT per driver a month, shown before VAT because hauliers are businesses. Don't write them out by hand.
+- **Merge `main` into `release` only for the full launch**, when the client says sign-up is public. Until then the self-serve wording lives on dev.safepark.app only.
 - **Don't edit legal page wording** beyond formatting unless the issue gives the new text. Those pages need sign-off from the company.
 
 ## Adding a guide

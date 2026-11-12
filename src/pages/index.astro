@@ -7,7 +7,7 @@ import HeroMap from '../components/HeroMap.astro';
 import Accreditations from '../components/Accreditations.astro';
 import GuideCard from '../components/GuideCard.astro';
 import CtaBand from '../components/CtaBand.astro';
-import { EMAIL, MAP_URL, PHONE, PHONE_HREF } from '../consts';
+import { EMAIL, HAULIER_SIGNUP_URL, JOIN_URL, LICENCE_PRICE, MAP_URL, PHONE, PHONE_HREF, TRIAL_DAYS } from '../consts';
 
 import iconSecure from '../assets/icons/info-secure.png';
 import iconCrime from '../assets/icons/pin-crime-new.png';
@@ -25,9 +25,9 @@ import cctv from '../assets/icons/info-cctv.png';
 const features = [
   { icon: iconSecure, title: 'Vetted parking locations', body: 'Every listed site is vetted, and its facilities are clearly labelled so drivers know what to expect before they arrive.' },
   { icon: iconCrime, title: 'Live cargo-crime updates', body: 'Check whether a location has had reported incidents before you stop. Crime data is refreshed twice daily.' },
-  { icon: iconTruckstop, title: 'Parking availability', body: 'Locate and book secure parking along the route instead of searching for a safe spot at the end of a shift.' },
+  { icon: iconTruckstop, title: 'Secure parking on your route', body: 'Find vetted, secure parking along your route instead of searching for a safe spot at the end of a shift.' },
   { icon: iconRoute, title: 'Route planning', body: 'Build secure stops into journey schedules to save fuel and time and avoid unplanned stops.' },
-  { icon: iconPound, title: 'Transparent pricing', body: 'Clear prices from each parking provider, so you know the cost before you pull in.' },
+  { icon: iconPound, title: 'Transparent pricing', body: 'Clear prices for each site, so you know the cost before you pull in.' },
   { icon: iconReport, title: 'Report a crime instantly', body: 'Add and report incidents from the map, helping keep the picture current for everyone.' },
 ];
 
@@ -57,8 +57,8 @@ const benefits = [
 ];
 
 const steps = [
-  { title: 'Request access', body: `Fill in the short form, or call us on ${PHONE}.` },
-  { title: 'We set up your account', body: 'We create your account and email you a login for map.safepark.app.' },
+  { title: 'Your haulier signs up', body: `A ${TRIAL_DAYS}-day free trial, then ${LICENCE_PRICE} per driver a month.` },
+  { title: 'You join with their code', body: 'Open the link they send you, or enter the code. Register with your name and email. It’s free for you.' },
   { title: 'Open the map', body: 'Log in from your phone’s browser, wherever you are. There’s nothing to install.' },
 ];
 
@@ -83,10 +83,10 @@ const guides = (await getCollection('guides', ({ data }) => !data.draft))
           Crime locations are updated twice a day.
         </p>
         <div class="hero-actions">
-          <Button href="/sign-up/" variant="on-dark" size="lg">Get access</Button>
+          <Button href="/sign-up/" variant="on-dark" size="lg">Get started</Button>
           <Button href={MAP_URL} variant="ghost-dark" size="lg">Open the map</Button>
         </div>
-        <p class="hero-note">Already registered? <a href={MAP_URL}>Log in to the map</a> with your SafePark login.</p>
+        <p class="hero-note">Got a code from your haulier? <a href={JOIN_URL}>Join here</a>. Already registered? <a href={MAP_URL}>Log in to the map</a>.</p>
       </div>
     </div>
   </section>
@@ -183,7 +183,11 @@ const guides = (await getCollection('guides', ({ data }) => !data.draft))
           ))
         }
       </ol>
-      <div class="steps-cta"><Button href="/sign-up/" variant="on-dark" size="lg">Request access</Button></div>
+      <div class="steps-cta">
+        <Button href={HAULIER_SIGNUP_URL} variant="on-dark" size="lg">Start a free trial</Button>
+        <Button href={JOIN_URL} variant="ghost-dark" size="lg">Join with a code</Button>
+      </div>
+      <p class="steps-note">No haulier code? <a href="/sign-up/#no-code">Tell us about you</a> or call {PHONE}.</p>
     </div>
   </section>
 
@@ -219,7 +223,7 @@ const guides = (await getCollection('guides', ({ data }) => !data.draft))
       <CtaBand title="Find a safe place to stop" centred>
         <p>Take the guesswork out of where to park tonight. With SafePark you know a stop is safe before you pull in.</p>
         <Fragment slot="actions">
-          <Button href="/sign-up/" variant="on-dark" size="lg">Get access</Button>
+          <Button href="/sign-up/" variant="on-dark" size="lg">Get started</Button>
           <Button href={MAP_URL} variant="ghost-dark" size="lg">Log in to the map</Button>
         </Fragment>
         <p slot="after" class="cta-contact">
@@ -305,7 +309,9 @@ const guides = (await getCollection('guides', ({ data }) => !data.draft))
   .steps .step-num { margin-bottom: 18px; }
   .steps h3 { margin: 0 0 8px; }
   .steps p { margin: 0; color: rgba(255, 255, 255, 0.8); }
-  .steps-cta { margin-top: 44px; }
+  .steps-cta { margin-top: 44px; display: flex; flex-wrap: wrap; gap: 14px; }
+  .steps-note { margin: 18px 0 0; color: var(--sp-on-navy-muted); }
+  .steps-note a { color: var(--sp-white); }
 
   .guides-head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px; margin-bottom: 40px; }
   .guides-head h2 { margin: 0; }
@@ -337,6 +343,8 @@ const guides = (await getCollection('guides', ({ data }) => !data.draft))
     .hero .lead { font-size: 17px; }
     .hero-actions { flex-direction: column; }
     .hero-actions :global(.btn) { width: 100%; }
+    .steps-cta { flex-direction: column; }
+    .steps-cta :global(.btn) { width: 100%; }
     .accredited-inner { flex-direction: column; gap: 16px; }
     .accredited :global(.logos) { gap: 18px 24px; }
     .accredited :global(img) { height: 32px !important; }

@@ -1,14 +1,20 @@
 ---
 import { Image } from 'astro:assets';
 import logo from '../assets/img/SafeParkLogo-Intelligent-Parking.png';
-import { COMPANY, EMAIL, MAP_URL, PHONE, PHONE_HREF } from '../consts';
+import {
+  COMPANY,
+  COMPANY_NUMBER,
+  EMAIL, MAP_URL, PHONE, PHONE_HREF,
+  REGISTERED_OFFICE,
+  VAT_NUMBER,
+} from '../consts';
 
 const columns = [
   {
     title: 'The app',
     links: [
       { label: 'Log in to the map', href: MAP_URL },
-      { label: 'Get access', href: '/sign-up/' },
+      { label: 'Get started', href: '/sign-up/' },
       { label: 'How it Works', href: '/#features' },
     ],
   },
@@ -63,6 +69,10 @@ const year = new Date().getFullYear();
     <div class="base">
       <span>© {year} {COMPANY}. All rights reserved.</span>
       <span>Map data © Mapbox © OpenStreetMap</span>
+      <p class="registered">
+        {COMPANY} is registered in England and Wales, company number {COMPANY_NUMBER}.
+        Registered office: {REGISTERED_OFFICE}. VAT number {VAT_NUMBER}.
+      </p>
     </div>
   </div>
 </footer>
@@ -94,5 +104,10 @@ const year = new Date().getFullYear();
     flex-wrap: wrap;
     gap: 8px 24px;
     justify-content: space-between;
+  }
+  .registered {
+    flex-basis: 100%;
+    margin: 0;
+    color: rgba(255, 255, 255, 0.6);
   }
 </style>
